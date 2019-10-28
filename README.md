@@ -1,3 +1,12 @@
+## Group 4 Workflow
+Our Workflow will include creating a branch for the feature being edited
+git branch <branch-name>
+git checkout <branch-name>
+
+Once work is completed the Scrum Master will evaluate the branch and accept the merge.
+
+## Project Notes
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This project contains an example project board meant to showcase how one can be used. The issues posted to it are not real issues.
 
