@@ -4,7 +4,7 @@ Our Workflow will include creating a branch for the feature being edited
 `git checkout <branch-name>`  
   
 Once work is completed the Scrum Master will evaluate the branch and accept the merge.
-
+   
 ## Project Notes
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
