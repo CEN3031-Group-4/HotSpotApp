@@ -1,7 +1,7 @@
 ## Group 4 Workflow
 Our Workflow will include creating a branch for the feature being edited
-git branch <branch-name>
-git checkout <branch-name>
+`git branch <branch-name>`
+`git checkout <branch-name>`
 
 Once work is completed the Scrum Master will evaluate the branch and accept the merge.
 
