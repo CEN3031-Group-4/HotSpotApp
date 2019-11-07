@@ -11,7 +11,7 @@ import {Form, Button} from 'react-bootstrap';
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
         <Header></Header>
         <Form>
           <Model />
