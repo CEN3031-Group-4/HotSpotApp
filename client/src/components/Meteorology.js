@@ -20,9 +20,16 @@ class Meteorology extends React.Component {
   stabilityChange = selectedOption => {
     this.setState(
       { selectedOption },
-       () => console.log(`Option selected:`, this.state.selectedOption)
+        () => {
+           console.log(`Option selected:`, this.state.selectedOption);
+           this.props.windSpeedUpdate(this.state.selectedOption.value);
+        }
     );
   };
+
+  windSpeedChange(e) {
+    this.props.windSpeedUpdate(e.target.value);
+  }
 
   render() {
     const { selectedOption } = this.state;
@@ -32,7 +39,10 @@ class Meteorology extends React.Component {
             <br></br>
             <Form.Row>
                 <Col>
-                    <Form.Control type="number" placeholder="Wind Speed" />
+                    <Form.Control
+                        type="number" placeholder="Wind Speed"
+                        onChange={this.windSpeedChange.bind(this)}
+                        />
                 </Col>
                 <Col>
                     <Select 
