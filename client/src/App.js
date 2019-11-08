@@ -8,7 +8,7 @@ import Model from "./components/Model"
 import Meteorology from "./components/Meteorology"
 import {Form, Button} from 'react-bootstrap';
 import {Gaussian} from "./components/Gaussian";
-
+import Receptors from "./components/Receptors";
 
 class App extends React.Component {
 
@@ -131,7 +131,9 @@ class App extends React.Component {
               <Meteorology  windSpeedUpdate={this.windSpeedUpdate.bind(this)}
                             stableValueUpdate={this.stableValueUpdate.bind(this)}
                             />
-              {/* <Receptors /> */}
+              <Receptors  receptorDistanceUpdate={this.receptorDistanceUpdate.bind(this)}
+                          receptorHeightUpdate={this.receptorHeightUpdate.bind(this)}
+              />
               {/* <Output /> */}
             </Form>
           </div>

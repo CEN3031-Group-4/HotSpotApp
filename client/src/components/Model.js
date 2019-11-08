@@ -29,8 +29,7 @@ class Model extends React.Component {
     selectedOption: { value: 'General_Plume', label: 'General Plume' },
     unit1Option: null,
     unit2Option: null,
-    nuclideOption: null,
-    sourceAmount: 0
+    nuclideOption: null
   };
 
   modelChange = selectedOption => {
