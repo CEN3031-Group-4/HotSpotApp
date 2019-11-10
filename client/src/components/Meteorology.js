@@ -22,7 +22,7 @@ class Meteorology extends React.Component {
       { selectedOption },
         () => {
            console.log(`Option selected:`, this.state.selectedOption);
-           this.props.windSpeedUpdate(this.state.selectedOption.value);
+           this.props.stableValueUpdate(this.state.selectedOption.value);
         }
     );
   };
