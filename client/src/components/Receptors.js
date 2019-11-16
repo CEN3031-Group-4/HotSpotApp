@@ -135,6 +135,7 @@ class Receptors extends React.Component {
                 <Col>
                 </Col>
             </Form.Row>
+            <br></br>
             <Form.Group>{this.state.inputs}</Form.Group>
         </div>
         );
