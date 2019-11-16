@@ -21,7 +21,8 @@ class App extends React.Component {
       fireCloudTop: 0,
       fireRadius: 0,
       sourceAmount: 0,
-      receptorDistance: [],
+      receptorDistance: {},
+      intervalQty: 0,
       receptorHeight: 0,
       releaseHeight: 0,
       windSpeed: 0,
@@ -66,10 +67,24 @@ class App extends React.Component {
 
   //******* need to make sure this is how to pass an array *******//
   // Not implemented
-  receptorDistanceUpdate = receptorDistance => {
+  receptorDistanceUpdate = newElement => {
     this.setState(
-      { receptorDistance },
-      () => console.log(`Receptor Distance Array: `, this.state.receptorDistance)
+      // prevState => ({
+      //   receptorDistance: [...prevState.receptorDistance, newElement]
+      // }),
+      () => {
+        if(newElement.id){
+          var id={};
+          id[newElement.id] = newElement.value;
+          this.state.receptorDistance[newElement.id] = newElement.value
+        }else{
+          //console.log(newElement);
+        }
+        
+        console.log(`Receptor Distance Array: `, this.state.receptorDistance);
+        // console.log(`NewElement ID: `, newElement.id);
+        // console.log(`NewElement Value: `, newElement.value);
+      }
     );
   }
   
@@ -78,6 +93,24 @@ class App extends React.Component {
     this.setState(
       { receptorHeight },
       () => console.log(`Receptor Height: `, this.state.receptorHeight)
+    );
+  }
+
+  intervalQtyUpdate = intervalQty => {
+    this.setState(
+      { intervalQty },
+      () => {
+        this.setState(
+          { receptorDistance: {}},
+          () => {
+            for(var i=0; i < intervalQty; i++){
+              //need to pass interval to this loop not Qty, just POC here.
+              //this.state.receptorDistance[i] = (i+1)*intervalQty;
+            }
+          }
+        )
+      },
+      console.log(`Interval Qty: `, this.state.intervalQty)
     );
   }
   
@@ -133,6 +166,7 @@ class App extends React.Component {
                             />
               <Receptors  receptorDistanceUpdate={this.receptorDistanceUpdate.bind(this)}
                           receptorHeightUpdate={this.receptorHeightUpdate.bind(this)}
+                          intervalQtyUpdate={this.intervalQtyUpdate.bind(this)}
               />
               {/* <Output /> */}
             </Form>
