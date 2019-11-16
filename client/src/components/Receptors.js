@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Col} from 'react-bootstrap';
@@ -15,7 +15,7 @@ const intervals = [
     { value: 'C', label: 'Custom' }
 ];
 
-const intervalQty = 0;
+//const intervalQty = 0;
 
 class Receptors extends React.Component {
     state = {
@@ -55,18 +55,27 @@ class Receptors extends React.Component {
       }
 
       makeinputs(){
-        var inputs = '<Form.Row>';
+        //var inputs = '<Form.Row>';
         if(this.state.selectedInterval){
            if(this.state.selectedInterval.value === "C" && this.state.intervalQty > 0){
                console.log("Make some inputs:");
-                var i, test = [],count;
+                var i, test = [],count,icount=1;
                 var rows = this.state.intervalQty / 5;
                 var remainder = this.state.intervalQty % 5;
                 for(i = 0; i < rows; i++){
                     var columns = [];
                     if(i > rows - 1){
                         for(count=0;count < remainder; count++){
-                            columns.push(<Col key={'c'+(i+1) +'-'+ (count+1)}><Form.Control key={(i+1) +'-'+ (count+1)} id={(i+1) +'-'+ (count+1)} type="number" onChange={this.inputsChange.bind(this)}/></Col>);
+                            columns.push(
+                                <Col key={'c'+(i+1) +'-'+ (count+1)}>
+                                    <Form.Control 
+                                    key={(i+1) +'-'+ (count+1)} 
+                                    id={(i+1) +'-'+ (count+1)} 
+                                    type="number" 
+                                    onChange={this.inputsChange.bind(this)}
+                                    placeholder={'Table Output: '+icount}/>
+                                </Col>);
+                                icount++;
                         }
                         for(count=0;count < 5 - remainder; count++){
                             columns.push(<Col key={'cn'+(i+1) +'-'+ (count+1)}></Col>);
@@ -74,7 +83,16 @@ class Receptors extends React.Component {
                     }
                     else{
                         for(count=0;count < 5; count++){
-                            columns.push(<Col key={'c'+(i+1) +'-'+ (count+1)}><Form.Control key={(i+1) +'-'+ (count+1)} id={(i+1) +'-'+ (count+1)} type="number" onChange={this.inputsChange.bind(this)}/></Col>);
+                            columns.push(
+                            <Col key={'c'+(i+1) +'-'+ (count+1)}>
+                                <Form.Control 
+                                key={(i+1) +'-'+ (count+1)} 
+                                id={(i+1) +'-'+ (count+1)} 
+                                type="number" 
+                                onChange={this.inputsChange.bind(this)}
+                                placeholder={'Table Output: '+icount}/>
+                            </Col>);
+                            icount++;
                         }
                     }
                     
@@ -90,7 +108,7 @@ class Receptors extends React.Component {
       }
 
     render() {
-        const { selectedInterval, intervalQty, inputs } = this.state;
+        const { selectedInterval } = this.state;
 
         return (
             <div>
