@@ -6,12 +6,7 @@ export const Gaussian = (   modelType,
                             Qt, x, z, H, u) => {
     // *** Things to do (not an all inclusive list, just things I have thought of while coding) ***
     // 1. I have not done anything with unit conversion yet//
-    // 
-    // 
-    // 
-    // 4. Need to figure out if this component is going to output any HTML
-    // 5. I have not done any verification that the equations are correct
-    // (need to add in console.log entries to verify I didn't make any mistakes)
+    //
     
     // x = receptor distance
     // Qt = The Source amount. In whichever units selected (Curies or Becquerels)
@@ -23,21 +18,11 @@ export const Gaussian = (   modelType,
     // fireCloudTop (if in feet, needs to be converted to meters)
     // fireRadius (if in feet, needs to be converted to meters)
 
-    // Test values
-    stableValue = 'A';
-    modelType = 'General_Plume';
-    fireCloudTop = 15;
-    fireRadius = 5;
-    Qt = 1;
-    x = 10;
-    z = 10;
-    H = 5;
-    u = 5;
-    let Sy, Sz, C, dy, dz, xy, xz = 0;
+    let Sy, Sz, C, dy, dz, xy, xz;
 
     // if general plume selected xy and xz are the same value
-    xy = x;
-    xz = x;
+    xy = parseFloat(x); //xy = x + dy (dy = 0 for General Plume)
+    xz = parseFloat(x); //xz = x + dz (dz = 0 for General Plume)
 
     if (modelType === 'General_Fire')
     {
@@ -46,18 +31,19 @@ export const Gaussian = (   modelType,
         } else {
             H = fireCloudTop / (0.00224 * fireCloudTop + 0.964);
         }
-        // I am confused about this section.
-        // ******** Need to talk to Fernando ***********//
+        
         if (stableValue === 'A' || stableValue === 'B' || stableValue === 'C' || stableValue === 'D') {
             if (((1.0 / 3) * H) > fireRadius) {
                 fireRadius = (1 / 3) * H;
             }
         }
+        console.log('H = ' + H);
+        console.log('fireRadius = ' + fireRadius);
 
         Sy = fireRadius / 2;
         Sz = fireRadius / 2;
 
-        let ady, bdy, cdy, adz, bdz, cdz = 0;
+        let ady, bdy, cdy, adz, bdz, cdz;
 
         if (stableValue === 'A')
         {
@@ -101,12 +87,27 @@ export const Gaussian = (   modelType,
 
             dz = Sz / (0.03 - 0.0003 * Sz);
         }
+        
         bdy = 0.0001 * (Sy ** 2);
         cdy = Sy ** 2;
+
+        console.log('ady = ' + ady);
+        console.log('bdy = ' + bdy);
+        console.log('cdy = ' + cdy);
+        console.log('adz = ' + adz);
+        console.log('bdz = ' + bdz);
+        console.log('cdz = ' + cdz);
+
         dy = (bdy + Math.sqrt((bdy ** 2) + 4 * ady * cdy)) / (2 * ady);
 
-        xy = x + dy;
-        xz = x + dz;
+        console.log('dy = ' + dy);
+        console.log('dz = ' + dz);
+        
+        xy = parseFloat(x) + dy;
+        xz = parseFloat(x) + dz;
+
+        console.log('xy = ' + xy)
+        console.log('xz = ' + xz)
     }
     // The remaining equations are the same for General Fire or General Plume
     if (stableValue === 'A')
@@ -131,18 +132,19 @@ export const Gaussian = (   modelType,
     }
     else if (stableValue === 'E')
     {
-        Sy = (0.11 * xy) / Math.sqrt(1 + 0.0001 * xy);
-        Sz = (0.080 * xz) / Math.sqrt(1 + 0.0002 * xz);
+        Sy = (0.06 * xy) / Math.sqrt(1 + 0.0001 * xy);
+        Sz = (0.030 * xz) / (1 + 0.0003 * xz);
     }
     else if (stableValue === 'F')
     {
-        Sy = (0.11 * xy) / Math.sqrt(1 + 0.0001 * xy);
-        Sz = (0.080 * xz) / Math.sqrt(1 + 0.0002 * xz);
+        Sy = (0.04 * xy) / Math.sqrt(1 + 0.0001 * xy);
+        Sz = (0.016 * xz) / (1 + 0.0003 * xz);
     }
+    console.log('Sy = ' + Sy);
+    console.log('Sz = ' + Sz);
 
-    //Gaussian Equation
     C = (Qt / (2 * Math.PI * Sy * Sz * u)) *
-    (Math.exp(-0.5 * Math.pow((z - H) / Sz, 2)) + Math.exp(-0.5 * Math.pow((z + H) / Sz, 2)));
+    (Math.exp(-0.5 * Math.pow((z - H) / Sz, 2)) + Math.exp(-0.5 * Math.pow((parseFloat(z) + parseFloat(H)) / Sz, 2)));
     console.log('The value of C is: ' + C);
     return C;
 }

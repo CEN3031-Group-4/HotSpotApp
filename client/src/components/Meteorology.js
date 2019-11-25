@@ -40,7 +40,7 @@ class Meteorology extends React.Component {
             <Form.Row>
                 <Col>
                     <Form.Control
-                        type="number" placeholder="Wind Speed"
+                        type="number" step="0.1" placeholder="Wind Speed"
                         onChange={this.windSpeedChange.bind(this)}
                         />
                 </Col>
@@ -55,7 +55,7 @@ class Meteorology extends React.Component {
             </Form.Row>
         </div>
     );
-}
+  }
 }
 
 export default Meteorology;
