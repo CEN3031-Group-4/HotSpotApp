@@ -43,6 +43,10 @@ class Receptors extends React.Component {
         this.props.intervalQtyUpdate(e.target.value);
       }
 
+      receptorHeightChange(e) {
+        this.props.receptorHeightUpdate(e.target.value);
+      }
+
       inputsChange(e) {
         this.setState(
             { receptorDistance: e.target.value },
@@ -115,8 +119,6 @@ class Receptors extends React.Component {
             <br></br>
             <Form.Row>
                 <Col>
-                </Col>
-                <Col>
                     <Select 
                         placeholder="Select X Interval"
                         value={selectedInterval}
@@ -125,14 +127,16 @@ class Receptors extends React.Component {
                     />
                 </Col>
                 <Col>
-                </Col>
-                <Col>
                     <Form.Control
                         type="number" placeholder="Number of Receptors"
                         onChange={this.intervalQtyChange.bind(this)}
                         />
                 </Col>
                 <Col>
+                    <Form.Control
+                        type="number" step="0.01" placeholder="Receptor Height"
+                        onChange={this.receptorHeightChange.bind(this)}
+                        />
                 </Col>
             </Form.Row>
             <br></br>

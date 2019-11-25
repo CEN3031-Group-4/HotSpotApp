@@ -16,7 +16,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      modelType: '',
+      modelType: 'General_Plume',
       stableValue: '',
       fireCloudTop: 0,
       fireRadius: 0,
@@ -65,8 +65,6 @@ class App extends React.Component {
     );
   }
 
-  //******* need to make sure this is how to pass an array *******//
-  // Not implemented
   receptorDistanceUpdate = newElement => {
     this.setState(
       // prevState => ({
@@ -131,21 +129,37 @@ class App extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     
-    // On Submit should contain the error checking
+    this.setState(
+      { concentration: [] },
+      () => console.log(`Reset Concentration: `, this.state.concentration)
+    );
+    console.log(`Submitted: ` + this.state.receptorDistance);
+    var receptDist = Object.values(this.state.receptorDistance);
 
-    for (var i = 0; i < this.state.receptorDistance.length; i++)
+    for (var i = 0; i < receptDist.length; i++)
     {
+      console.log(`Values Passed to Gaussian:`, `\n`, 
+                  `Model Type: `,         this.state.modelType, `\n`,
+                  `Stability Value: `,    this.state.stableValue, `\n`,
+                  `Fire Cloud Top: `,     this.state.fireCloudTop, `\n`,
+                  `Fire Radius: `,        this.state.fireRadius, `\n`,
+                  `Source Amount: `,      this.state.sourceAmount, `\n`,
+                  `Receptor Distance: `,  receptDist[i], `\n`,
+                  `Receptor Height: `,    this.state.receptorHeight, `\n`,
+                  `Release Height: `,     this.state.releaseHeight, `\n`,
+                  `Wind Speed: `,         this.state.windSpeed);
       this.state.concentration.push(Gaussian(this.state.modelType,
-                                  this.state.stableValue,
-                                  this.state.fireCloudTop,
-                                  this.state.fireRadius,
-                                  this.state.sourceAmount,
-                                  this.state.receptorDistance[i],
-                                  this.state.receptorHeight,
-                                  this.state.releaseHeight,
-                                  this.state.windSpeed
-                                  ));
+                                          this.state.stableValue,
+                                          this.state.fireCloudTop,
+                                          this.state.fireRadius,
+                                          this.state.sourceAmount,
+                                          receptDist[i],
+                                          this.state.receptorHeight,
+                                          this.state.releaseHeight,
+                                          this.state.windSpeed
+                                          ));
     }
+    console.log(`Gaussian Concentration Output: \n` + this.state.concentration);
   }
 
   render() {
@@ -154,7 +168,7 @@ class App extends React.Component {
           <Header></Header>
           <div  className="container"
                 style={{paddingTop: 20}}>
-            <Form onSubmit={this.onSubmit}>
+            <Form onSubmit= {this.onSubmit.bind(this)}>
               <Model  modelTypeUpdate={this.modelTypeUpdate.bind(this)}
                       fireCloudTopUpdate={this.fireCloudTopUpdate.bind(this)}
                       fireRadiusUpdate={this.fireRadiusUpdate.bind(this)}
@@ -169,12 +183,13 @@ class App extends React.Component {
                           intervalQtyUpdate={this.intervalQtyUpdate.bind(this)}
               />
               {/* <Output /> */}
+              <br></br>
+              <div className="text-center">
+                <Button type="submit" className="btn btn-dark" >Generate Output</Button>
+              </div>
             </Form>
           </div>
-          <br></br>
-          <div className="text-center">
-            <Button type="submit" className="btn btn-dark" >Generate Output</Button>
-          </div>
+          
       </div>
     );
   }
