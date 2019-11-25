@@ -9,12 +9,12 @@ const options = [
     { value: 'General_Fire', label: 'General Fire' }
 ];
 
-const units1 = [
+const sourceUnitsOptions = [
     { value: 'Ci', label: 'Curies (Ci)' },
     { value: 'Bq', label: 'Becquerel (Bq)' }
 ];
 
-const units2 = [
+const distanceUnitsOptions = [
     { value: 'm', label: 'Meters (m)' },
     { value: 'ft', label: 'Feet (ft)' }
 ];
@@ -27,8 +27,8 @@ class Model extends React.Component {
 
   state = {
     selectedOption: { value: 'General_Plume', label: 'General Plume' },
-    unit1Option: null,
-    unit2Option: null,
+    sourceUnits: null,
+    distanceUnits: null,
     nuclideOption: null
   };
 
@@ -42,17 +42,23 @@ class Model extends React.Component {
     );
   };
 
-  unit1Change = unit1Option => {
+  sourceUnitsChange = sourceUnits => {
     this.setState(
-      { unit1Option },
-       () => console.log(`Option selected:`, this.state.unit1Option)
+      { sourceUnits },
+       () => {
+           console.log(`Option selected:`, this.state.sourceUnits);
+           this.props.sourceUnitsUpdate(this.state.sourceUnits.value);
+       }
     );
   };
 
-  unit2Change = unit2Option => {
+  distanceUnitsChange = distanceUnits => {
     this.setState(
-      { unit2Option },
-       () => console.log(`Option selected:`, this.state.unit2Option)
+      { distanceUnits },
+       () => {
+           console.log(`Option selected:`, this.state.distanceUnits);
+           this.props.distanceUnitsUpdate(this.state.distanceUnits.value);
+       }
     );
   };
 
@@ -80,7 +86,7 @@ class Model extends React.Component {
   }
 
   render() {
-    const { selectedOption, unit1Option, unit2Option, nuclideOption } = this.state;
+    const { selectedOption, sourceUnits, distanceUnits, nuclideOption } = this.state;
 
     if(selectedOption){ 
         if(selectedOption.value === "General_Plume") {
@@ -117,14 +123,14 @@ class Model extends React.Component {
                             <Col>
                                 <Select 
                                     placeholder="Units"
-                                    value={unit1Option}
-                                    onChange={this.unit1Change}
-                                    options={units1}    
+                                    value={sourceUnits}
+                                    onChange={this.sourceUnitsChange}
+                                    options={sourceUnitsOptions}    
                                 />
                             </Col>
                             <Col>
                                 <Form.Control
-                                    type="number" placeholder="Height"
+                                    type="number" placeholder="Release Height"
                                     onChange={this.releaseHeightChange.bind(this)}
                                 />
                             </Col>
@@ -132,9 +138,9 @@ class Model extends React.Component {
                             <Col>
                                 <Select 
                                     placeholder="Units"
-                                    value={unit2Option}
-                                    onChange={this.unit2Change}
-                                    options={units2}    
+                                    value={distanceUnits}
+                                    onChange={this.distanceUnitsChange}
+                                    options={distanceUnitsOptions}    
                                 />
                             </Col>
                         </Form.Row>
@@ -175,33 +181,29 @@ class Model extends React.Component {
                             <Col>
                                 <Select 
                                     placeholder="Units"
-                                    value={unit1Option}
-                                    onChange={this.unit1Change}
-                                    options={units1}    
+                                    value={sourceUnits}
+                                    onChange={this.sourceUnitsChange}
+                                    options={sourceUnitsOptions}    
                                 />
                             </Col>
                             <Col>
-                                <Form.Control
-                                    type="number" placeholder="Height"
-                                    onChange={this.releaseHeightChange.bind(this)}
-                                    />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number" placeholder="Fire Radius"
-                                    onChange={this.fireRadiusChange.bind(this)}
-                                    />
                                 <Form.Control
                                     type="number" placeholder="Fire Cloud Height"
                                     onChange={this.fireCloudTopChange.bind(this)}
                                     />
                             </Col>
                             <Col>
+                                <Form.Control
+                                    type="number" placeholder="Fire Radius"
+                                    onChange={this.fireRadiusChange.bind(this)}
+                                    />   
+                            </Col>
+                            <Col>
                                 <Select 
                                     placeholder="Units"
-                                    value={unit2Option}
-                                    onChange={this.unit2Change}
-                                    options={units2}    
+                                    value={distanceUnits}
+                                    onChange={this.distanceUnitsChange}
+                                    options={distanceUnitsOptions}
                                 />
                             </Col>
                         </Form.Row>

@@ -55,7 +55,7 @@ class Meteorology extends React.Component {
             </Form.Row>
         </div>
     );
-}
+  }
 }
 
 export default Meteorology;
