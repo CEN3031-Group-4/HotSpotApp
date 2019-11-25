@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Col} from 'react-bootstrap';
-
+import Nuclides from '../assets/nuclides';
 
 const options = [
     { value: 'General_Plume', label: 'General Plume' },
@@ -19,9 +19,7 @@ const distanceUnitsOptions = [
     { value: 'ft', label: 'Feet (ft)' }
 ];
 
-const nuclides = [
-    { value: 'tbd', label: 'Nuclide Source' }
-];
+const nuclides = Nuclides;
 
 class Model extends React.Component {
 
