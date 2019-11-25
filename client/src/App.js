@@ -10,24 +10,32 @@ import {Form, Button} from 'react-bootstrap';
 import {Gaussian} from "./components/Gaussian";
 import Receptors from "./components/Receptors";
 
+const initialState = {
+      modelType: 'General_Plume',
+      stableValue: '',
+      fireCloudTop: 0,
+      fireCloudTopErr: "",
+      fireRadius: 0,
+      fireRadiusErr: "",
+      sourceAmount: 0,
+      sourceAmountErr: "",
+      receptorDistance: {},
+      intervalQty: 0,
+      intervalQtyErr: "",
+      receptorHeight: 0,
+      receptorHeightErr: "",
+      releaseHeight: 0,
+      releaseHeightErr: "",
+      windSpeed: 0,
+      windSpeedErr: "",
+      concentration: []
+}
 class App extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      modelType: 'General_Plume',
-      stableValue: '',
-      fireCloudTop: 0,
-      fireRadius: 0,
-      sourceAmount: 0,
-      receptorDistance: {},
-      intervalQty: 0,
-      receptorHeight: 0,
-      releaseHeight: 0,
-      windSpeed: 0,
-      concentration: []
-    };
+    this.state = initialState;
   }
 
   modelTypeUpdate = modelType => {
@@ -61,7 +69,9 @@ class App extends React.Component {
   sourceAmountUpdate = sourceAmount => {
     this.setState(
       { sourceAmount },
-      () => console.log(`Source Amount: `, this.state.sourceAmount)
+      () => console.log(`Source Amount: `, this.state.sourceAmount),
+
+      
     );
   }
 
@@ -126,8 +136,64 @@ class App extends React.Component {
     );
   }
 
-  onSubmit(e) {
+  validate = () => {
+    let sourceAmountErr = "";
+    let fireCloudTopErr = "";
+    let fireRadiusErr = "";
+    let releaseHeightErr = "";
+    let windSpeedErr = "";
+    let intervalQtyErr = "";
+    let receptorHeightErr = "";
+
+    if (this.state.sourceAmount < 0){
+      sourceAmountErr = "Invalid input: Source Amount cannot be less than 0.";
+    }
+
+    if (this.state.fireCloudTop < 0){
+      fireCloudTopErr = "Invalid input: Fire Cloud Top cannot be less than 0.";
+    }
+
+    if (this.state.fireRadius < 0){
+      fireRadiusErr = "Invalid input: Fire Radius cannot be less than 0.";
+    }
+
+    if (this.state.releaseHeight < 0){
+      releaseHeightErr = "Invalid input: Height cannot be less than 0.";
+    }
+
+    if (this.state.windSpeed < 0.2 || this.state.windSpeed > 111){
+      windSpeedErr = "Invalid input: Wind speed must be between 0.2 and 111 mph.";
+    }
+
+    if (this.state.intervalQty < 0){
+      intervalQtyErr = "Invalid input: Number of receptors cannot be less than 0.";
+    }
+
+    if (this.state.receptorHeight < 0){
+      receptorHeightErr = "Invalid input: Receptor height cannot be less than 0.";
+    }
+
+    if (sourceAmountErr || fireCloudTopErr || fireRadiusErr 
+      || releaseHeightErr|| windSpeedErr || intervalQtyErr || receptorHeightErr ){
+
+      this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr,
+      releaseHeightErr, windSpeedErr,  intervalQtyErr, receptorHeightErr});
+      return false;
+      
+    }
+
+    return true;
+  }
+
+  handleSubmit = e => {
     e.preventDefault();
+    const isValid = this.validate();
+    if(isValid){
+      console.log(this.state);
+
+      //clearing form
+      this.setState(initialState);
+    }
     
     this.setState(
       { concentration: [] },
@@ -168,20 +234,45 @@ class App extends React.Component {
           <Header></Header>
           <div  className="container"
                 style={{paddingTop: 20}}>
-            <Form onSubmit= {this.onSubmit.bind(this)}>
+            <Form onSubmit= {this.handleSubmit}>{/*onSubmit.bind(this)}>*/}
               <Model  modelTypeUpdate={this.modelTypeUpdate.bind(this)}
                       fireCloudTopUpdate={this.fireCloudTopUpdate.bind(this)}
                       fireRadiusUpdate={this.fireRadiusUpdate.bind(this)}
-                      sourceAmountUpdate={this.sourceAmountUpdate.bind(this)}
+                      sourceAmountUpdate={this.sourceAmountUpdate.bind(this)}  
                       releaseHeightUpdate={this.releaseHeightUpdate.bind(this)}
                       />
+                      
               <Meteorology  windSpeedUpdate={this.windSpeedUpdate.bind(this)}
                             stableValueUpdate={this.stableValueUpdate.bind(this)}
                             />
               <Receptors  receptorDistanceUpdate={this.receptorDistanceUpdate.bind(this)}
                           receptorHeightUpdate={this.receptorHeightUpdate.bind(this)}
                           intervalQtyUpdate={this.intervalQtyUpdate.bind(this)}
+                          
               />
+
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.sourceAmountErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.fireCloudTopErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.fireRadiusErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.releaseHeightErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.WindSpeedErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.intervalQtyErr}
+                      </div>  
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.receptorHeightErr}
+                      </div> 
+                            
               {/* <Output /> */}
               <br></br>
               <div className="text-center">

@@ -110,9 +110,11 @@ class Model extends React.Component {
                             </Col>
                             <Col>
                                 <Form.Control
-                                    type="number" placeholder="Source Amount"
+                                    type="number" 
+                                    placeholder="Source Amount"
                                     onChange={this.sourceAmountChange.bind(this)}
                                 />
+                                <div>{this.props.sourceAmountErr}</div>
                             </Col>
                             <Col>
                                 <Select 
@@ -168,9 +170,12 @@ class Model extends React.Component {
                             </Col>
                             <Col>
                                 <Form.Control
-                                    type="number" placeholder="Source Amount"
+                                    type="number" 
+                                    name="sourceAmount"
+                                    placeholder="Source Amount"
                                     onChange={this.sourceAmountChange.bind(this)}
                                     />
+                                    <div>{this.state.sourceAmountErr}</div>
                             </Col>
                             <Col>
                                 <Select 
