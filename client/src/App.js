@@ -11,6 +11,27 @@ import {Gaussian} from "./components/Gaussian";
 import Receptors from "./components/Receptors";
 import Output from "./components/Output";
 
+const initialState = {
+  modelType: 'General_Plume',
+  stableValue: '',
+  fireCloudTop: 0,
+  fireCloudTopErr: "",
+  fireRadius: 0,
+  fireRadiusErr: "",
+  sourceAmount: 0,
+  sourceAmountErr: "",
+  receptorDistance: {},
+  intervalQty: 0,
+  intervalQtyErr: "",
+  receptorHeight: 0,
+  receptorHeightErr: "",
+  releaseHeight: 0,
+  releaseHeightErr: "",
+  windSpeed: 0,
+  windSpeedErr: "",
+  concentration: [],
+  blankError: ""
+}
 class App extends React.Component {
 
   constructor(props) {
@@ -143,6 +164,66 @@ class App extends React.Component {
     );
   }
 
+  validate = () => {
+    let sourceAmountErr = "";
+    let fireCloudTopErr = "";
+    let fireRadiusErr = "";
+    let releaseHeightErr = "";
+    let windSpeedErr = "";
+    let intervalQtyErr = "";
+    let receptorHeightErr = "";
+    let blankError = "";
+    let modelType = this.state.modelType;
+
+      if(!(this.state.sourceAmount && this.state.releaseHeight && this.state.windSpeed 
+        && this.state.intervalQty && this.state.receptorHeight)){
+          blankError = "Error: Some fields have been left blank.";
+        }
+
+      if (modelType === "General_Fire" && !(this.state.fireRadius && this.state.fireCloudTop)){
+          blankError = "Error: Some fields have been left blank.";
+      }
+
+      if (this.state.sourceAmount < 0){
+        sourceAmountErr = "Invalid input: Source Amount cannot be less than 0.";
+      }
+
+      if (this.state.fireCloudTop < 0){
+        fireCloudTopErr = "Invalid input: Fire Cloud Top cannot be less than 0.";
+      }
+
+      if (this.state.fireRadius < 0){
+        fireRadiusErr = "Invalid input: Fire Radius cannot be less than 0.";
+      }
+
+      if (this.state.releaseHeight < 0){
+        releaseHeightErr = "Invalid input: Height cannot be less than 0.";
+      }
+
+      if (this.state.windSpeed < 0.2 || this.state.windSpeed > 111){
+        windSpeedErr = "Invalid input: Wind speed must be between 0.2 and 111 mph.";
+      }
+
+      if (this.state.intervalQty < 0){
+        intervalQtyErr = "Invalid input: Number of receptors cannot be less than 0.";
+      }
+
+      if (this.state.receptorHeight < 0){
+        receptorHeightErr = "Invalid input: Receptor height cannot be less than 0.";
+      }
+
+      if (sourceAmountErr || fireCloudTopErr || fireRadiusErr 
+        || releaseHeightErr|| windSpeedErr || intervalQtyErr || receptorHeightErr || blankError ){
+
+        this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr,
+        releaseHeightErr, windSpeedErr,  intervalQtyErr, receptorHeightErr, blankError});
+        return false;
+        
+      }
+
+      return true;
+    }
+
   onSubmit(e) {
     e.preventDefault();
     
@@ -150,6 +231,15 @@ class App extends React.Component {
     //  { concentration: [] },
     //  () => console.log(`Reset Concentration: `, this.state.concentration)
     //);
+
+    const isValid = this.validate();
+    if(isValid){
+      console.log(this.state);
+
+      //clearing form
+      this.setState(initialState);
+    }
+
     this.setState(
       {receptDist: Object.values(this.state.receptorDistance)},
       () => {
@@ -203,6 +293,30 @@ class App extends React.Component {
                           receptorHeightUpdate={this.receptorHeightUpdate.bind(this)}
                           intervalQtyUpdate={this.intervalQtyUpdate.bind(this)}
               />
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.sourceAmountErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.fireCloudTopErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.fireRadiusErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.releaseHeightErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.WindSpeedErr}
+                      </div>
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.intervalQtyErr}
+                      </div>  
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.receptorHeightErr}
+                      </div> 
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.blankError}
+                      </div>
               <div className="text-center">
                 <Button type="submit" className="btn btn-dark" >Generate Output</Button>
               </div>
