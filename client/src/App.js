@@ -12,24 +12,13 @@ import Receptors from "./components/Receptors";
 import Output from "./components/Output";
 
 const initialState = {
-  modelType: 'General_Plume',
-  stableValue: '',
-  fireCloudTop: 0,
   fireCloudTopErr: "",
-  fireRadius: 0,
   fireRadiusErr: "",
-  sourceAmount: 0,
   sourceAmountErr: "",
-  receptorDistance: {},
-  intervalQty: 0,
   intervalQtyErr: "",
-  receptorHeight: 0,
   receptorHeightErr: "",
-  releaseHeight: 0,
   releaseHeightErr: "",
-  windSpeed: 0,
   windSpeedErr: "",
-  concentration: [],
   blankError: ""
 }
 class App extends React.Component {
