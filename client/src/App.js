@@ -40,7 +40,8 @@ class App extends React.Component {
       concentration: [],
       sourceUnits: 'Ci',
       distanceUnits: 'm',
-      receptDist: [],
+      speedUnits: 'm/s',
+      receptDist: []
     };
   }
 
@@ -139,6 +140,13 @@ class App extends React.Component {
     );
   }
 
+  speedUnitsUpdate = speedUnits => {
+    this.setState(
+      { speedUnits },
+      () => console.log(`Speed Units: `, this.state.speedUnits)
+    );
+  }
+  
   sourceUnitsUpdate = sourceUnits => {
     this.setState(
       { sourceUnits },
@@ -265,7 +273,8 @@ class App extends React.Component {
       <div className="container-fluid">
           <Header></Header>
           <div  className="container"
-                style={{paddingTop: 20}}>
+                style={{paddingTop: 20}}
+                >
             <Form onSubmit= {this.onSubmit.bind(this)}>
               <Model  modelTypeUpdate={this.modelTypeUpdate.bind(this)}
                       fireCloudTopUpdate={this.fireCloudTopUpdate.bind(this)}
@@ -277,6 +286,7 @@ class App extends React.Component {
                       />
               <Meteorology  windSpeedUpdate={this.windSpeedUpdate.bind(this)}
                             stableValueUpdate={this.stableValueUpdate.bind(this)}
+                            speedUnitsUpdate={this.speedUnitsUpdate.bind(this)}
                             />
               <Receptors  receptorDistanceUpdate={this.receptorDistanceUpdate.bind(this)}
                           receptorHeightUpdate={this.receptorHeightUpdate.bind(this)}
@@ -322,6 +332,7 @@ class App extends React.Component {
                     concentration={this.state.concentration}
                     sourceUnits={this.state.sourceUnits}
                     distanceUnits={this.state.distanceUnits}
+                    speedUnits={this.state.speedUnits}
                     />
             <br></br>
           </div>
