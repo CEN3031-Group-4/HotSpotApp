@@ -64,37 +64,37 @@ class Receptors extends React.Component {
            if(this.state.selectedInterval.value === "C" && this.state.intervalQty > 0){
                console.log("Make some inputs:");
                 var i, test = [],count,icount=1;
-                var rows = this.state.intervalQty / 5;
-                var remainder = this.state.intervalQty % 5;
+                var rows = this.state.intervalQty / 6;
+                var remainder = this.state.intervalQty % 6;
                 for(i = 0; i < rows; i++){
                     var columns = [];
                     if(i > rows - 1){
                         for(count=0;count < remainder; count++){
                             columns.push(
-                                <Col key={'c'+(i+1) +'-'+ (count+1)}>
+                                <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
                                     <Form.Control 
                                     key={(i+1) +'-'+ (count+1)} 
                                     id={(i+1) +'-'+ (count+1)} 
                                     type="number" 
                                     onChange={this.inputsChange.bind(this)}
-                                    placeholder={'Table Output: '+icount}/>
+                                    placeholder={'x-'+icount}/>
                                 </Col>);
                                 icount++;
                         }
-                        for(count=0;count < 5 - remainder; count++){
+                        for(count=0;count < 6 - remainder; count++){
                             columns.push(<Col key={'cn'+(i+1) +'-'+ (count+1)}></Col>);
                         }
                     }
                     else{
-                        for(count=0;count < 5; count++){
+                        for(count=0;count < 6; count++){
                             columns.push(
-                            <Col key={'c'+(i+1) +'-'+ (count+1)}>
+                            <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
                                 <Form.Control 
                                 key={(i+1) +'-'+ (count+1)} 
                                 id={(i+1) +'-'+ (count+1)} 
                                 type="number" 
                                 onChange={this.inputsChange.bind(this)}
-                                placeholder={'Table Output: '+icount}/>
+                                placeholder={'x-'+icount}/>
                             </Col>);
                             icount++;
                         }
@@ -116,32 +116,39 @@ class Receptors extends React.Component {
 
         return (
             <div>
-            <br></br>
-            <Form.Row>
-                <Col>
-                    <Select 
-                        placeholder="Select X Interval"
-                        value={selectedInterval}
-                        onChange={this.intervalChange}
-                        options={intervals}    
-                    />
-                </Col>
-                <Col>
-                    <Form.Control
-                        type="number" placeholder="Number of Receptors"
-                        onChange={this.intervalQtyChange.bind(this)}
-                        />
-                </Col>
-                <Col>
-                    <Form.Control
-                        type="number" step="0.01" placeholder="Receptor Height"
-                        onChange={this.receptorHeightChange.bind(this)}
-                        />
-                </Col>
-            </Form.Row>
-            <br></br>
-            <Form.Group>{this.state.inputs}</Form.Group>
-        </div>
+                <Form.Row>
+                    <Col xs={12} sm={6} md={4} lg={4}>
+                        <Form.Group>
+                            <Form.Label>Select x-Receptor Interval</Form.Label>
+                            <Select 
+                                placeholder="Select X Interval"
+                                value={selectedInterval}
+                                onChange={this.intervalChange}
+                                options={intervals}    
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6} md={4} lg={4}>
+                        <Form.Group>
+                            <Form.Label>No. of x-Receptor Inputs</Form.Label>
+                            <Form.Control
+                                type="number" placeholder="Number of Receptors"
+                                onChange={this.intervalQtyChange.bind(this)}
+                                />
+                        </Form.Group>
+                    </Col>
+                    <Col xs={12} sm={6} md={4} lg={4}>
+                        <Form.Group>
+                            <Form.Label>z-Receptor Height</Form.Label>
+                            <Form.Control
+                                type="number" step="0.01" placeholder="Receptor Height"
+                                onChange={this.receptorHeightChange.bind(this)}
+                                />
+                        </Form.Group>
+                    </Col>
+                </Form.Row>
+                <Form.Group>{this.state.inputs}</Form.Group>
+            </div>
         );
     }
 }

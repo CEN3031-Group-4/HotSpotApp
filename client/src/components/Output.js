@@ -25,7 +25,7 @@ class Output extends React.Component {
                         Selected Nuclide: N/A<br />
                         Source Amount: {this.props.sourceAmount} {this.props.sourceUnits}<br />
                         Release Height: {this.props.releaseHeight} {this.props.distanceUnits}<br />
-                        Wind Speed: {this.props.windSpeed} {this.props.distanceUnits}/s<br />
+                        Wind Speed: {this.props.windSpeed} {this.props.speedUnits}<br />
                         Stability Value: {this.props.stableValue}<br />
                         Receptor Height: {this.props.receptorHeight} {this.props.distanceUnits}<br />
                     </p>

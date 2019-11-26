@@ -92,54 +92,71 @@ class Model extends React.Component {
                 <div>
                     <Form.Row>
                         <Col></Col>
-                        <Col>
-                            <Select
-                                value={selectedOption}
-                                onChange={this.modelChange}
-                                options={options}
-                            />
+                        <Col xs={12} sm={8} md={6} lg={4}>
+                            <Form.Group controlId="formModelType">
+                                <Form.Label>Select Model Type</Form.Label>
+                                <Select
+                                    value={selectedOption}
+                                    onChange={this.modelChange}
+                                    options={options}
+                                />
+                            </Form.Group>
                         </Col>
                         <Col></Col>
                     </Form.Row>
-                    <br></br>
                     <div>
                         <Form.Row>
-                            <Col>
-                                <Select 
-                                    placeholder="Nuclide"
-                                    value={nuclideOption}
-                                    onChange={this.nuclideChange}
-                                    options={nuclides}    
-                                />
+                            <Col xs={12} sm={4} md={4} lg={2}>
+                                <Form.Group controlId="formNuclide">
+                                    <Form.Label>Select Nuclide</Form.Label>
+                                    <Select 
+                                        placeholder="Nuclide"
+                                        value={nuclideOption}
+                                        onChange={this.nuclideChange}
+                                        options={nuclides}    
+                                    />
+                                </Form.Group>
                             </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number" placeholder="Source Amount"
-                                    onChange={this.sourceAmountChange.bind(this)}
-                                />
+                            <Col xs={12} sm={4} md={4} lg={2}>
+                                <Form.Group controlId="formSourceAmount">
+                                    <Form.Label>Source Amount</Form.Label>
+                                    <Form.Control
+                                        type="number" placeholder="Source Amount"
+                                        onChange={this.sourceAmountChange.bind(this)}
+                                    />
+                                </Form.Group>
                             </Col>
-                            <Col>
-                                <Select 
-                                    placeholder="Units"
-                                    value={sourceUnits}
-                                    onChange={this.sourceUnitsChange}
-                                    options={sourceUnitsOptions}    
-                                />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number" placeholder="Release Height"
-                                    onChange={this.releaseHeightChange.bind(this)}
-                                />
+                            <Col xs={12} sm={4} md={4} lg={2}>
+                                <Form.Group controlId="formSourceUnits">
+                                    <Form.Label>Radioactivity Units</Form.Label>
+                                    <Select 
+                                        placeholder="Units"
+                                        value={sourceUnits}
+                                        onChange={this.sourceUnitsChange}
+                                        options={sourceUnitsOptions}    
+                                    />
+                                </Form.Group>
                             </Col>
                             <Col></Col>
-                            <Col>
-                                <Select 
-                                    placeholder="Units"
-                                    value={distanceUnits}
-                                    onChange={this.distanceUnitsChange}
-                                    options={distanceUnitsOptions}    
-                                />
+                            <Col xs={12} sm={4} md={4} lg={2}>
+                                <Form.Group controlId="formReleaseHeight">
+                                    <Form.Label>Release Height</Form.Label>
+                                    <Form.Control
+                                        type="number" placeholder="Release Height"
+                                        onChange={this.releaseHeightChange.bind(this)}
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={12} sm={4} md={4} lg={2}>
+                                <Form.Group controlId="formDistanceUnits">
+                                    <Form.Label>Distance Units</Form.Label>
+                                    <Select 
+                                        placeholder="Units"
+                                        value={distanceUnits}
+                                        onChange={this.distanceUnitsChange}
+                                        options={distanceUnitsOptions}    
+                                    />
+                                </Form.Group>
                             </Col>
                         </Form.Row>
                     </div>
@@ -150,61 +167,81 @@ class Model extends React.Component {
                 <div>
                     <Form.Row>
                         <Col></Col>
-                        <Col>
-                            <Select
-                                value={selectedOption}
-                                onChange={this.modelChange}
-                                options={options}
-                            />
+                        <Col xs={12} sm={8} md={6} lg={4}>
+                            <Form.Group controlId="formModelType">
+                                <Form.Label>Select Model Type</Form.Label>
+                                <Select
+                                    value={selectedOption}
+                                    onChange={this.modelChange}
+                                    options={options}
+                                />
+                            </Form.Group>
                         </Col>
                         <Col></Col>
                     </Form.Row>
-                    <br></br>
                     <div>
                         <Form.Row>
-                            <Col>
-                                <Select 
-                                    placeholder="Nuclide"
-                                    value={nuclideOption}
-                                    onChange={this.nuclideChange}
-                                    options={nuclides}    
-                                />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number" placeholder="Source Amount"
-                                    onChange={this.sourceAmountChange.bind(this)}
-                                    />
-                            </Col>
-                            <Col>
-                                <Select 
-                                    placeholder="Units"
-                                    value={sourceUnits}
-                                    onChange={this.sourceUnitsChange}
-                                    options={sourceUnitsOptions}    
-                                />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number" placeholder="Fire Cloud Height"
-                                    onChange={this.fireCloudTopChange.bind(this)}
-                                    />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="number" placeholder="Fire Radius"
-                                    onChange={this.fireRadiusChange.bind(this)}
-                                    />   
-                            </Col>
-                            <Col>
-                                <Select 
-                                    placeholder="Units"
-                                    value={distanceUnits}
-                                    onChange={this.distanceUnitsChange}
-                                    options={distanceUnitsOptions}
-                                />
-                            </Col>
-                        </Form.Row>
+                                <Col xs={12} sm={4} md={4} lg={2}>
+                                    <Form.Group controlId="formNuclide">
+                                        <Form.Label>Select Nuclide</Form.Label>
+                                        <Select 
+                                            placeholder="Nuclide"
+                                            value={nuclideOption}
+                                            onChange={this.nuclideChange}
+                                            options={nuclides}    
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} sm={4} md={4} lg={2}>
+                                    <Form.Group controlId="formSourceAmount">
+                                        <Form.Label>Source Amount</Form.Label>
+                                        <Form.Control
+                                            type="number" placeholder="Source Amount"
+                                            onChange={this.sourceAmountChange.bind(this)}
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} sm={4} md={4} lg={2}>
+                                    <Form.Group controlId="formSourceUnits">
+                                        <Form.Label>Radioactivity Units</Form.Label>
+                                        <Select 
+                                            placeholder="Units"
+                                            value={sourceUnits}
+                                            onChange={this.sourceUnitsChange}
+                                            options={sourceUnitsOptions}    
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} sm={4} md={4} lg={2}>
+                                    <Form.Group controlId="formFireCloudHeight">
+                                        <Form.Label>Fire Cloud Height</Form.Label>
+                                        <Form.Control
+                                            type="number" placeholder="Fire Cloud Height"
+                                            onChange={this.fireCloudTopChange.bind(this)}
+                                            />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} sm={4} md={4} lg={2}>
+                                    <Form.Group controlId="formFireCloudHeight">
+                                        <Form.Label>Fire Cloud Height</Form.Label>
+                                        <Form.Control
+                                            type="number" placeholder="Fire Radius"
+                                            onChange={this.fireRadiusChange.bind(this)}
+                                            />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} sm={4} md={4} lg={2}>
+                                    <Form.Group controlId="formDistanceUnits">
+                                        <Form.Label>Distance Units</Form.Label>
+                                        <Select 
+                                            placeholder="Units"
+                                            value={distanceUnits}
+                                            onChange={this.distanceUnitsChange}
+                                            options={distanceUnitsOptions}    
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Form.Row>
                         </div>
                     </div>
                 );
