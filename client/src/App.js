@@ -9,10 +9,11 @@ import Meteorology from "./components/Meteorology"
 import {Form, Button} from 'react-bootstrap';
 import {Gaussian} from "./components/Gaussian";
 import Receptors from "./components/Receptors";
+import Output from "./components/Output";
 
 const initialState = {
       modelType: 'General_Plume',
-      stableValue: '',
+      stableValue: 'A',
       fireCloudTop: 0,
       fireCloudTopErr: "",
       fireRadius: 0,
@@ -98,7 +99,6 @@ class App extends React.Component {
     );
   }
   
-  // Not implemented
   receptorHeightUpdate = receptorHeight => {
     this.setState(
       { receptorHeight },
@@ -199,6 +199,22 @@ class App extends React.Component {
   }
 
   handleSubmit = e => {
+  sourceUnitsUpdate = sourceUnits => {
+    this.setState(
+      { sourceUnits },
+      () => console.log(`Source Units: `, this.state.sourceUnits)
+    );
+  }
+
+  distanceUnitsUpdate = distanceUnits => {
+    this.setState(
+      { distanceUnits },
+      () => console.log(`Distance Units: `, this.state.distanceUnits)
+    );
+  }
+
+  onSubmit(e) {
+
     e.preventDefault();
     const isValid = this.validate();
     if(isValid){
@@ -208,37 +224,39 @@ class App extends React.Component {
       this.setState(initialState);
     }
     
+    //this.setState(
+    //  { concentration: [] },
+    //  () => console.log(`Reset Concentration: `, this.state.concentration)
+    //);
     this.setState(
-      { concentration: [] },
-      () => console.log(`Reset Concentration: `, this.state.concentration)
-    );
-    console.log(`Submitted: ` + this.state.receptorDistance);
-    var receptDist = Object.values(this.state.receptorDistance);
-
-    for (var i = 0; i < receptDist.length; i++)
-    {
-      console.log(`Values Passed to Gaussian:`, `\n`, 
-                  `Model Type: `,         this.state.modelType, `\n`,
-                  `Stability Value: `,    this.state.stableValue, `\n`,
-                  `Fire Cloud Top: `,     this.state.fireCloudTop, `\n`,
-                  `Fire Radius: `,        this.state.fireRadius, `\n`,
-                  `Source Amount: `,      this.state.sourceAmount, `\n`,
-                  `Receptor Distance: `,  receptDist[i], `\n`,
-                  `Receptor Height: `,    this.state.receptorHeight, `\n`,
-                  `Release Height: `,     this.state.releaseHeight, `\n`,
-                  `Wind Speed: `,         this.state.windSpeed);
-      this.state.concentration.push(Gaussian(this.state.modelType,
-                                          this.state.stableValue,
-                                          this.state.fireCloudTop,
-                                          this.state.fireRadius,
-                                          this.state.sourceAmount,
-                                          receptDist[i],
-                                          this.state.receptorHeight,
-                                          this.state.releaseHeight,
-                                          this.state.windSpeed
-                                          ));
-    }
-    console.log(`Gaussian Concentration Output: \n` + this.state.concentration);
+      {receptDist: Object.values(this.state.receptorDistance)},
+      () => {
+        for (var i = 0; i < this.state.receptDist.length; i++)
+        {
+          console.log(`Values Passed to Gaussian:`, `\n`, 
+                      `Model Type: `,         this.state.modelType, `\n`,
+                      `Stability Value: `,    this.state.stableValue, `\n`,
+                      `Fire Cloud Top: `,     this.state.fireCloudTop, `\n`,
+                      `Fire Radius: `,        this.state.fireRadius, `\n`,
+                      `Source Amount: `,      this.state.sourceAmount, `\n`,
+                      `Receptor Distance: `,  this.state.receptDist[i], `\n`,
+                      `Receptor Height: `,    this.state.receptorHeight, `\n`,
+                      `Release Height: `,     this.state.releaseHeight, `\n`,
+                      `Wind Speed: `,         this.state.windSpeed);
+          this.state.concentration.push(Gaussian(this.state.modelType,
+                                              this.state.stableValue,
+                                              this.state.fireCloudTop,
+                                              this.state.fireRadius,
+                                              this.state.sourceAmount,
+                                              this.state.receptDist[i],
+                                              this.state.receptorHeight,
+                                              this.state.releaseHeight,
+                                              this.state.windSpeed
+                                              ));
+        }
+        console.log(`Gaussian Concentration Output: \n` + this.state.concentration);
+    });
+    //this.state.receptDist = Object.values(this.state.receptorDistance);    
   }
 
   render() {
@@ -253,6 +271,8 @@ class App extends React.Component {
                       fireRadiusUpdate={this.fireRadiusUpdate.bind(this)}
                       sourceAmountUpdate={this.sourceAmountUpdate.bind(this)}  
                       releaseHeightUpdate={this.releaseHeightUpdate.bind(this)}
+                      sourceUnitsUpdate={this.sourceUnitsUpdate.bind(this)}
+                      distanceUnitsUpdate={this.distanceUnitsUpdate.bind(this)}
                       />
                       
               <Meteorology  windSpeedUpdate={this.windSpeedUpdate.bind(this)}
@@ -288,13 +308,26 @@ class App extends React.Component {
               <div style={{fontSize: 14, color: "red"}}>
                         {this.state.blankError}
                       </div> 
-                            
-              {/* <Output /> */}
+
               <br></br>
               <div className="text-center">
                 <Button type="submit" className="btn btn-dark" >Generate Output</Button>
               </div>
             </Form>
+            <Output modelType={this.state.modelType}
+                    stableValue={this.state.stableValue}
+                    fireCloudTop={this.state.fireCloudTop}
+                    fireRadius={this.state.fireRadius}
+                    sourceAmount={this.state.sourceAmount}
+                    receptDist={this.state.receptDist}
+                    receptorHeight={this.state.receptorHeight}
+                    releaseHeight={this.state.releaseHeight}
+                    windSpeed={this.state.windSpeed}
+                    concentration={this.state.concentration}
+                    sourceUnits={this.state.sourceUnits}
+                    distanceUnits={this.state.distanceUnits}
+                    />
+            <br></br>
           </div>
           
       </div>
