@@ -28,7 +28,9 @@ const initialState = {
       releaseHeightErr: "",
       windSpeed: 0,
       windSpeedErr: "",
-      concentration: []
+      concentration: [],
+      blankError: ""
+
 }
 class App extends React.Component {
 
@@ -144,6 +146,17 @@ class App extends React.Component {
     let windSpeedErr = "";
     let intervalQtyErr = "";
     let receptorHeightErr = "";
+    let blankError = "";
+    let modelType = this.state.modelType;
+
+    if(!(this.state.sourceAmount && this.state.releaseHeight && this.state.windSpeed 
+      && this.state.intervalQty && this.state.receptorHeight)){
+        blankError = "Error: Some fields have been left blank.";
+      }
+
+    if (modelType == "General_Fire" && !(this.state.fireRadius && this.state.fireCloudTop)){
+        blankError = "Error: Some fields have been left blank.";
+    }
 
     if (this.state.sourceAmount < 0){
       sourceAmountErr = "Invalid input: Source Amount cannot be less than 0.";
@@ -174,10 +187,10 @@ class App extends React.Component {
     }
 
     if (sourceAmountErr || fireCloudTopErr || fireRadiusErr 
-      || releaseHeightErr|| windSpeedErr || intervalQtyErr || receptorHeightErr ){
+      || releaseHeightErr|| windSpeedErr || intervalQtyErr || receptorHeightErr || blankError ){
 
       this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr,
-      releaseHeightErr, windSpeedErr,  intervalQtyErr, receptorHeightErr});
+      releaseHeightErr, windSpeedErr,  intervalQtyErr, receptorHeightErr, blankError});
       return false;
       
     }
@@ -271,6 +284,9 @@ class App extends React.Component {
                       </div>  
               <div style={{fontSize: 14, color: "red"}}>
                         {this.state.receptorHeightErr}
+                      </div> 
+              <div style={{fontSize: 14, color: "red"}}>
+                        {this.state.blankError}
                       </div> 
                             
               {/* <Output /> */}

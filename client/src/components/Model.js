@@ -114,7 +114,7 @@ class Model extends React.Component {
                                     placeholder="Source Amount"
                                     onChange={this.sourceAmountChange.bind(this)}
                                 />
-                                <div>{this.props.sourceAmountErr}</div>
+                                
                             </Col>
                             <Col>
                                 <Select 
