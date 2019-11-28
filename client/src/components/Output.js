@@ -10,12 +10,13 @@ class Output extends React.Component {
                 <td>{distance} {this.props.distanceUnits}</td>
             </tr>
         );
+        //console.log(`Output receptors: `, receptDist);
         const concentrationList = concentration.map((concentrate) =>
             <tr>
                 <td>{concentrate} {this.props.sourceUnits}-s/{this.props.distanceUnits}<sup>3</sup></td>
             </tr>
         );
-
+        //console.log(`Output concentration: `, concentration);
         return (
             <div>
                 <Col>
@@ -27,7 +28,7 @@ class Output extends React.Component {
                         Release Height: {this.props.releaseHeight} {this.props.distanceUnits}<br />
                         Wind Speed: {this.props.windSpeed} {this.props.speedUnits}<br />
                         Stability Value: {this.props.stableValue}<br />
-                        Receptor Height: {this.props.receptorHeight} {this.props.distanceUnits}<br />
+                        Receptor Height: {this.props.receptorHeight} {this.props.receptorUnits}<br />
                     </p>
                     <table className="table table-striped">
                         <thead>

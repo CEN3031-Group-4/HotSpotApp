@@ -10,13 +10,13 @@ const options = [
 ];
 
 const sourceUnitsOptions = [
-    { value: 'Ci', label: 'Curies (Ci)' },
-    { value: 'Bq', label: 'Becquerel (Bq)' }
+    { value: 'Ci', label: 'Ci (Curies)' },
+    { value: 'Bq', label: 'Bq (Becquerel)' }
 ];
 
 const distanceUnitsOptions = [
-    { value: 'm', label: 'Meters (m)' },
-    { value: 'ft', label: 'Feet (ft)' }
+    { value: 'm', label: 'm (meters)' },
+    { value: 'ft', label: 'ft (feet)' }
 ];
 
 const nuclides = Nuclides;
@@ -25,8 +25,8 @@ class Model extends React.Component {
 
   state = {
     selectedOption: { value: 'General_Plume', label: 'General Plume' },
-    sourceUnits: null,
-    distanceUnits: null,
+    sourceUnits: { value: 'Ci', label: 'Ci (Curies)' },
+    distanceUnits: { value: 'm', label: 'm (meters)' },
     nuclideOption: null
   };
 
@@ -121,7 +121,7 @@ class Model extends React.Component {
                                 <Form.Group controlId="formSourceAmount">
                                     <Form.Label>Source Amount</Form.Label>
                                     <Form.Control
-                                        type="number" placeholder="Source Amount"
+                                        type="number" step ="0.0001" placeholder="Source Amount"
                                         onChange={this.sourceAmountChange.bind(this)}
                                     />
                                 </Form.Group>
@@ -137,12 +137,11 @@ class Model extends React.Component {
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col></Col>
-                            <Col xs={12} sm={4} md={4} lg={2}>
+                            <Col xs={12} sm={4} md={4} lg={4}>
                                 <Form.Group controlId="formReleaseHeight">
                                     <Form.Label>Release Height</Form.Label>
                                     <Form.Control
-                                        type="number" placeholder="Release Height"
+                                        type="number" step ="0.0001" placeholder="Release Height"
                                         onChange={this.releaseHeightChange.bind(this)}
                                     />
                                 </Form.Group>
@@ -196,7 +195,7 @@ class Model extends React.Component {
                                     <Form.Group controlId="formSourceAmount">
                                         <Form.Label>Source Amount</Form.Label>
                                         <Form.Control
-                                            type="number" placeholder="Source Amount"
+                                            type="number" step ="0.0001" placeholder="Source Amount"
                                             onChange={this.sourceAmountChange.bind(this)}
                                         />
                                     </Form.Group>
@@ -216,16 +215,16 @@ class Model extends React.Component {
                                     <Form.Group controlId="formFireCloudHeight">
                                         <Form.Label>Fire Cloud Height</Form.Label>
                                         <Form.Control
-                                            type="number" placeholder="Fire Cloud Height"
+                                            type="number" step ="0.0001" placeholder="Fire Cloud Height"
                                             onChange={this.fireCloudTopChange.bind(this)}
                                             />
                                     </Form.Group>
                                 </Col>
                                 <Col xs={12} sm={4} md={4} lg={2}>
-                                    <Form.Group controlId="formFireCloudHeight">
-                                        <Form.Label>Fire Cloud Height</Form.Label>
+                                    <Form.Group controlId="formFireRadius">
+                                        <Form.Label>Fire Radius</Form.Label>
                                         <Form.Control
-                                            type="number" placeholder="Fire Radius"
+                                            type="number" step ="0.0001" placeholder="Fire Radius"
                                             onChange={this.fireRadiusChange.bind(this)}
                                             />
                                     </Form.Group>
