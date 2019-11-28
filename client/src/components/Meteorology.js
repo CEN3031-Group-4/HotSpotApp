@@ -14,14 +14,14 @@ const options = [
 ];
 
 const speedUnitsOptions = [
-  { value: 'm/s', label: 'Meters/Second (m/s)' },
-  { value: 'mph', label: 'Miles Per Hour (mph)' }
+  { value: 'm/s', label: 'm/s (meters/second)' },
+  { value: 'mph', label: 'mph (miles/hour)' }
 ];
 
 class Meteorology extends React.Component {
   state = {
     selectedOption: null,
-    speedUnits: null
+    speedUnits: { value: 'm/s', label: 'm/s (meters/second)' }
   };
   stabilityChange = selectedOption => {
     this.setState(
@@ -57,7 +57,7 @@ class Meteorology extends React.Component {
                     <Form.Group controlId="basicWindSpeed">
                         <Form.Label>Wind Speed</Form.Label>
                         <Form.Control
-                            type="number" step="0.1" placeholder="Wind Speed"
+                            type="number" step="0.01" placeholder="Wind Speed"
                             onChange={this.windSpeedChange.bind(this)}
                             />
                     </Form.Group> 
@@ -73,7 +73,7 @@ class Meteorology extends React.Component {
                         />
                     </Form.Group>
                 </Col>
-                <Col xs={12} sm={6} md={6} lg={4}>
+                <Col xs={12} sm={6} md={6} lg={6}>
                     <Form.Group controlId="basicStableOption">
                         <Form.Label>Stability Class</Form.Label>
                         <Select 

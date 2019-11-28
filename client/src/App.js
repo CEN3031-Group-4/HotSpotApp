@@ -21,6 +21,11 @@ const initialState = {
   windSpeedErr: "",
   blankError: ""
 }
+
+const standardInterval = [0.03, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+  1, 2, 4, 6, 8, 10, 20, 40, 60, 80
+]
+
 class App extends React.Component {
 
   constructor(props) {
@@ -40,6 +45,7 @@ class App extends React.Component {
       concentration: [],
       sourceUnits: 'Ci',
       distanceUnits: 'm',
+      receptorUnits: 'km',
       speedUnits: 'm/s',
       receptDist: []
     };
@@ -108,6 +114,8 @@ class App extends React.Component {
     );
   }
 
+  //I tried to pass intervalQty from receptors.js but was unable to so I just used standardInterval.length
+  //to fill the receptor distances
   intervalQtyUpdate = intervalQty => {
     this.setState(
       { intervalQty },
@@ -115,14 +123,15 @@ class App extends React.Component {
         this.setState(
           { receptorDistance: {}},
           () => {
-            for(var i=0; i < intervalQty; i++){
+            for(var i=0; i < standardInterval.length; i++){
               //need to pass interval to this loop not Qty, just POC here.
-              //this.state.receptorDistance[i] = (i+1)*intervalQty;
+              this.state.receptorDistance[i] = standardInterval[i];
             }
+            console.log(`Receptor Distance Array: `, this.state.receptorDistance);
           }
         )
       },
-      console.log(`Interval Qty: `, this.state.intervalQty)
+      //console.log(`Interval Qty: `, this.state.intervalQty)
     );
   }
   
@@ -161,6 +170,13 @@ class App extends React.Component {
     );
   }
 
+  receptorUnitsUpdate = receptorUnits => {
+    this.setState(
+      { receptorUnits },
+      () => console.log(`Distance Units: `, this.state.receptorUnits)
+    );
+  }
+
   validate = () => {
     let sourceAmountErr = "";
     let fireCloudTopErr = "";
@@ -194,13 +210,13 @@ class App extends React.Component {
       }
 
       if (this.state.releaseHeight < 0){
-        releaseHeightErr = "Invalid input: Height cannot be less than 0.";
+        releaseHeightErr = "Invalid input: Release height cannot be less than 0.";
       }
 
       if (this.state.windSpeed < 0.2 || this.state.windSpeed > 111){
-        windSpeedErr = "Invalid input: Wind speed must be between 0.2 and 111 mph.";
+        windSpeedErr = "Invalid input: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
       }
-
+      
       if (this.state.intervalQty < 0){
         intervalQtyErr = "Invalid input: Number of receptors cannot be less than 0.";
       }
@@ -235,37 +251,36 @@ class App extends React.Component {
 
       //clearing form
       this.setState(initialState);
-    }
-
-    this.setState(
-      {receptDist: Object.values(this.state.receptorDistance)},
-      () => {
-        for (var i = 0; i < this.state.receptDist.length; i++)
-        {
-          console.log(`Values Passed to Gaussian:`, `\n`, 
-                      `Model Type: `,         this.state.modelType, `\n`,
-                      `Stability Value: `,    this.state.stableValue, `\n`,
-                      `Fire Cloud Top: `,     this.state.fireCloudTop, `\n`,
-                      `Fire Radius: `,        this.state.fireRadius, `\n`,
-                      `Source Amount: `,      this.state.sourceAmount, `\n`,
-                      `Receptor Distance: `,  this.state.receptDist[i], `\n`,
-                      `Receptor Height: `,    this.state.receptorHeight, `\n`,
-                      `Release Height: `,     this.state.releaseHeight, `\n`,
-                      `Wind Speed: `,         this.state.windSpeed);
-          this.state.concentration.push(Gaussian(this.state.modelType,
-                                              this.state.stableValue,
-                                              this.state.fireCloudTop,
-                                              this.state.fireRadius,
-                                              this.state.sourceAmount,
-                                              this.state.receptDist[i],
-                                              this.state.receptorHeight,
-                                              this.state.releaseHeight,
-                                              this.state.windSpeed
-                                              ));
-        }
-        console.log(`Gaussian Concentration Output: \n` + this.state.concentration);
-    });
-    //this.state.receptDist = Object.values(this.state.receptorDistance);    
+      this.setState(
+        {receptDist: Object.values(this.state.receptorDistance),
+        concentration: []},
+        () => {
+          for (var i = 0; i < this.state.receptDist.length; i++)
+          {
+            /*console.log(`Values Passed to Gaussian:`, `\n`,
+                        `Model Type: `,         this.state.modelType, `\n`,
+                        `Stability Value: `,    this.state.stableValue, `\n`,
+                        `Fire Cloud Top: `,     this.state.fireCloudTop, `\n`,
+                        `Fire Radius: `,        this.state.fireRadius, `\n`,
+                        `Source Amount: `,      this.state.sourceAmount, `\n`,
+                        `Receptor Distance: `,  this.state.receptDist[i], `\n`,
+                        `Receptor Height: `,    this.state.receptorHeight, `\n`,
+                        `Release Height: `,     this.state.releaseHeight, `\n`,
+                        `Wind Speed: `,         this.state.windSpeed);*/
+            this.state.concentration.push(Gaussian(this.state.modelType,
+                                                this.state.stableValue,
+                                                this.state.fireCloudTop,
+                                                this.state.fireRadius,
+                                                this.state.sourceAmount,
+                                                this.state.receptDist[i],
+                                                this.state.receptorHeight,
+                                                this.state.releaseHeight,
+                                                this.state.windSpeed
+                                                ));
+          }
+          console.log(`Gaussian Concentration: \n` + this.state.concentration);
+        });
+    } 
   }
 
   render() {
@@ -291,6 +306,7 @@ class App extends React.Component {
               <Receptors  receptorDistanceUpdate={this.receptorDistanceUpdate.bind(this)}
                           receptorHeightUpdate={this.receptorHeightUpdate.bind(this)}
                           intervalQtyUpdate={this.intervalQtyUpdate.bind(this)}
+                          receptorUnitsUpdate={this.receptorUnitsUpdate.bind(this)}
               />
               <div style={{fontSize: 14, color: "red"}}>
                         {this.state.sourceAmountErr}
@@ -305,7 +321,7 @@ class App extends React.Component {
                         {this.state.releaseHeightErr}
                       </div>
               <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.WindSpeedErr}
+                        {this.state.windSpeedErr}
                       </div>
               <div style={{fontSize: 14, color: "red"}}>
                         {this.state.intervalQtyErr}
@@ -333,6 +349,7 @@ class App extends React.Component {
                     sourceUnits={this.state.sourceUnits}
                     distanceUnits={this.state.distanceUnits}
                     speedUnits={this.state.speedUnits}
+                    receptorUnits={this.state.receptorUnits}
                     />
             <br></br>
           </div>

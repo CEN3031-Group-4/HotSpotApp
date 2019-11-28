@@ -37,8 +37,8 @@ export const Gaussian = (   modelType,
                 fireRadius = (1 / 3) * H;
             }
         }
-        console.log('H = ' + H);
-        console.log('fireRadius = ' + fireRadius);
+        //console.log('H = ' + H);
+        //console.log('fireRadius = ' + fireRadius);
 
         Sy = fireRadius / 2;
         Sz = fireRadius / 2;
@@ -90,24 +90,24 @@ export const Gaussian = (   modelType,
         
         bdy = 0.0001 * (Sy ** 2);
         cdy = Sy ** 2;
-
+        /*
         console.log('ady = ' + ady);
         console.log('bdy = ' + bdy);
         console.log('cdy = ' + cdy);
         console.log('adz = ' + adz);
         console.log('bdz = ' + bdz);
         console.log('cdz = ' + cdz);
-
+        */
         dy = (bdy + Math.sqrt((bdy ** 2) + 4 * ady * cdy)) / (2 * ady);
 
-        console.log('dy = ' + dy);
-        console.log('dz = ' + dz);
+        //console.log('dy = ' + dy);
+        //console.log('dz = ' + dz);
         
         xy = parseFloat(x) + dy;
         xz = parseFloat(x) + dz;
 
-        console.log('xy = ' + xy)
-        console.log('xz = ' + xz)
+        //console.log('xy = ' + xy)
+        //console.log('xz = ' + xz)
     }
     // The remaining equations are the same for General Fire or General Plume
     if (stableValue === 'A')
@@ -140,11 +140,11 @@ export const Gaussian = (   modelType,
         Sy = (0.04 * xy) / Math.sqrt(1 + 0.0001 * xy);
         Sz = (0.016 * xz) / (1 + 0.0003 * xz);
     }
-    console.log('Sy = ' + Sy);
-    console.log('Sz = ' + Sz);
+    //console.log('Sy = ' + Sy);
+    //console.log('Sz = ' + Sz);
 
     C = (Qt / (2 * Math.PI * Sy * Sz * u)) *
     (Math.exp(-0.5 * Math.pow((z - H) / Sz, 2)) + Math.exp(-0.5 * Math.pow((parseFloat(z) + parseFloat(H)) / Sz, 2)));
-    console.log('The value of C is: ' + C);
+    //console.log('The value of C is: ' + C);
     return C;
 }
