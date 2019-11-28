@@ -10,6 +10,7 @@ import {Form, Button} from 'react-bootstrap';
 import {Gaussian} from "./components/Gaussian";
 import Receptors from "./components/Receptors";
 import Output from "./components/Output";
+import Errors from "./components/Errors";
 
 const initialState = {
   fireCloudTopErr: "",
@@ -19,7 +20,8 @@ const initialState = {
   receptorHeightErr: "",
   releaseHeightErr: "",
   windSpeedErr: "",
-  blankError: ""
+  blankError: "",
+  receptorFieldErr: ""
 }
 
 const standardInterval = [0.03, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
@@ -187,6 +189,20 @@ class App extends React.Component {
     let receptorHeightErr = "";
     let blankError = "";
     let modelType = this.state.modelType;
+    let speedUnits = this.state.speedUnits;
+    let receptorFieldErr = "";
+
+    const receptorFields = document.querySelectorAll('.receptor-control-input');
+    
+    for (let i = 0; i < receptorFields.length; i++) {
+      const field = receptorFields[i];
+      const value = field.value;
+
+      if (value === "" || value < 0) {
+        receptorFieldErr = "Error: Receptor fields cannot be blank or less than 0.";
+        break;
+      }
+    }
 
       if(!(this.state.sourceAmount && this.state.releaseHeight && this.state.windSpeed 
         && this.state.intervalQty && this.state.receptorHeight)){
@@ -213,7 +229,11 @@ class App extends React.Component {
         releaseHeightErr = "Invalid input: Release height cannot be less than 0.";
       }
 
-      if (this.state.windSpeed < 0.2 || this.state.windSpeed > 111){
+      if (speedUnits === "m/s" && (this.state.windSpeed < 0.1 || this.state.windSpeed > 50)){
+        windSpeedErr = "Invalid input: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
+      }
+
+      if (speedUnits === "mph" && (this.state.windSpeed < 0.2 || this.state.windSpeed > 111)){
         windSpeedErr = "Invalid input: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
       }
       
@@ -226,10 +246,10 @@ class App extends React.Component {
       }
 
       if (sourceAmountErr || fireCloudTopErr || fireRadiusErr 
-        || releaseHeightErr|| windSpeedErr || intervalQtyErr || receptorHeightErr || blankError ){
+        || releaseHeightErr|| windSpeedErr || intervalQtyErr || receptorHeightErr || blankError || receptorFieldErr ){
 
         this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr,
-        releaseHeightErr, windSpeedErr,  intervalQtyErr, receptorHeightErr, blankError});
+        releaseHeightErr, windSpeedErr,  intervalQtyErr, receptorHeightErr, blankError, receptorFieldErr});
         return false;
         
       }
@@ -308,30 +328,18 @@ class App extends React.Component {
                           intervalQtyUpdate={this.intervalQtyUpdate.bind(this)}
                           receptorUnitsUpdate={this.receptorUnitsUpdate.bind(this)}
               />
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.sourceAmountErr}
-                      </div>
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.fireCloudTopErr}
-                      </div>
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.fireRadiusErr}
-                      </div>
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.releaseHeightErr}
-                      </div>
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.windSpeedErr}
-                      </div>
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.intervalQtyErr}
-                      </div>  
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.receptorHeightErr}
-                      </div> 
-              <div style={{fontSize: 14, color: "red"}}>
-                        {this.state.blankError}
-                      </div>
+              <Errors
+                  sourceAmountErr={this.state.sourceAmountErr}
+                  fireCloudTopErr={this.state.fireCloudTopErr}
+                  fireRadiusErr={this.state.fireRadiusErr}
+                  releaseHeightErr={this.state.releaseHeightErr}
+                  windSpeedErr={this.state.windSpeedErr}
+                  intervalQtyErr={this.state.intervalQtyErr}
+                  receptorHeightErr={this.state.receptorHeightErr}
+                  blankError={this.state.blankError}
+                  receptorFieldErr={this.state.receptorFieldErr}
+              />
+
               <div className="text-center">
                 <Button type="submit" className="btn btn-dark" >Generate Output</Button>
               </div>
