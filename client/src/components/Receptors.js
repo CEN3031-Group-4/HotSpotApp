@@ -112,7 +112,8 @@ class Receptors extends React.Component {
                         for(count=0;count < remainder; count++){
                             columns.push(
                                 <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
-                                    <Form.Control 
+                                    <Form.Control
+                                    className="receptor-control-input" 
                                     key={(i+1) +'-'+ (count+1)} 
                                     id={(i+1) +'-'+ (count+1)} 
                                     type="number"
@@ -130,7 +131,8 @@ class Receptors extends React.Component {
                         for(count=0;count < 6; count++){
                             columns.push(
                             <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
-                                <Form.Control 
+                                <Form.Control
+                                className="receptor-control-input" 
                                 key={(i+1) +'-'+ (count+1)} 
                                 id={(i+1) +'-'+ (count+1)} 
                                 type="number"
@@ -156,7 +158,8 @@ class Receptors extends React.Component {
                         for(count=0;count < remainder; count++){
                             columns.push(
                                 <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
-                                    <Form.Control 
+                                    <Form.Control
+                                    className="receptor-control-input"
                                     key={(i+1) +'-'+ (count+1)} 
                                     id={(i+1) +'-'+ (count+1)} 
                                     type="number"
@@ -174,9 +177,10 @@ class Receptors extends React.Component {
                         for(count=0;count < 6; count++){
                             columns.push(
                             <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
-                                <Form.Control 
-                                key={(i+1) +'-'+ (count+1)} 
-                                id={(i+1) +'-'+ (count+1)} 
+                                <Form.Control
+                                className="receptor-control-input"
+                                key={(i+1) +'-'+ (count+1)}
+                                id={(i+1) +'-'+ (count+1)}
                                 type="number"
                                 step ="0.0001"
                                 onChange={this.inputsChange.bind(this)}
