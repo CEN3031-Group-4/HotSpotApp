@@ -20,10 +20,7 @@ class Errors extends React.Component {
                 {this.props.releaseHeightErr}
             </div>
             <div style={{fontSize: 14, color: "red"}}>
-                {this.props.WindSpeedErr}
-            </div>
-            <div style={{fontSize: 14, color: "red"}}>
-                {this.props.intervalQtyErr}
+                {this.props.windSpeedErr}
             </div>  
             <div style={{fontSize: 14, color: "red"}}>
                 {this.props.receptorHeightErr}
