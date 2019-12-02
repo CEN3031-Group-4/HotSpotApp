@@ -48,14 +48,17 @@ class Receptors extends React.Component {
                                   () => {
                                      this.makeinputs();
                                      console.log(`intervalQty in Receptors.js: `, this.state.intervalQty);
-                                     this.props.intervalQtyUpdate(this.state.intervalQty);
+                                     this.props.standardReceptorUpdate();
                                     });
                }    
                else if (this.state.selectedInterval.value === 'C') {
                    this.setState({inputDisabled: false,
                                   inputPlaceholder: "Number of Receptors",
                                   intervalQty: 0},
-                                  () => this.makeinputs());
+                                  () => {
+                                      this.props.clearReceptorInputs();
+                                      this.makeinputs();
+                                    });
                }
                console.log(`Interval selected:`, this.state.selectedInterval);
                //console.log(`Input Disabled: `, this.state.inputDisabled);
@@ -71,7 +74,7 @@ class Receptors extends React.Component {
                  this.makeinputs();
               }
           );
-        //this.props.intervalQtyUpdate(e.target.value);
+        //this.props.standardReceptorUpdate(e.target.value);
       }
 
       receptorHeightChange(e) {
@@ -112,8 +115,7 @@ class Receptors extends React.Component {
                         for(count=0;count < remainder; count++){
                             columns.push(
                                 <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
-                                    <Form.Control
-                                    className="receptor-control-input" 
+                                    <Form.Control                  
                                     key={(i+1) +'-'+ (count+1)} 
                                     id={(i+1) +'-'+ (count+1)} 
                                     type="number"
@@ -131,8 +133,7 @@ class Receptors extends React.Component {
                         for(count=0;count < 6; count++){
                             columns.push(
                             <Col key={'c'+(i+1) +'-'+ (count+1)} xs={6} sm={4} md={2} lg={2}>
-                                <Form.Control
-                                className="receptor-control-input" 
+                                <Form.Control                                
                                 key={(i+1) +'-'+ (count+1)} 
                                 id={(i+1) +'-'+ (count+1)} 
                                 type="number"
