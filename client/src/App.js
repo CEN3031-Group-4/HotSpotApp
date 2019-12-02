@@ -16,7 +16,6 @@ const initialState = {
   fireCloudTopErr: "",
   fireRadiusErr: "",
   sourceAmountErr: "",
-  intervalQtyErr: "",
   receptorHeightErr: "",
   releaseHeightErr: "",
   windSpeedErr: "",
@@ -185,7 +184,6 @@ class App extends React.Component {
     let fireRadiusErr = "";
     let releaseHeightErr = "";
     let windSpeedErr = "";
-    let intervalQtyErr = "";
     let receptorHeightErr = "";
     let blankError = "";
     let modelType = this.state.modelType;
@@ -204,52 +202,53 @@ class App extends React.Component {
       }
     }
 
-      if(!(this.state.sourceAmount && this.state.releaseHeight && this.state.windSpeed 
-        && this.state.intervalQty && this.state.receptorHeight)){
-          blankError = "Error: Some fields have been left blank.";
+    if (speedUnits === "m/s" && (this.state.windSpeed < 0.1 || this.state.windSpeed > 50)){
+      windSpeedErr = "Error: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
+    }
+
+    if (speedUnits === "mph" && (this.state.windSpeed < 0.2 || this.state.windSpeed > 111)){
+      windSpeedErr = "Error: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
+    }
+
+    if(!(this.state.sourceAmount && this.state.windSpeed 
+        &&  this.state.receptorHeight)){
+          blankError = "Error: Fields have been left blank.";
         }
 
-      if (modelType === "General_Fire" && !(this.state.fireRadius && this.state.fireCloudTop)){
-          blankError = "Error: Some fields have been left blank.";
+    if (modelType === "General_Fire" && !(this.state.fireRadius && this.state.fireCloudTop)){
+          blankError = "Error: Fields have been left blank.";
       }
 
-      if (this.state.sourceAmount < 0){
-        sourceAmountErr = "Invalid input: Source Amount cannot be less than 0.";
+    if (this.state.sourceAmount < 0){
+        sourceAmountErr = "Error: Source Amount cannot be less than 0.";
       }
 
-      if (this.state.fireCloudTop < 0){
-        fireCloudTopErr = "Invalid input: Fire Cloud Top cannot be less than 0.";
+    if (this.state.fireCloudTop < 0){
+        fireCloudTopErr = "Error: Fire Cloud Top cannot be less than 0.";
       }
 
-      if (this.state.fireRadius < 0){
-        fireRadiusErr = "Invalid input: Fire Radius cannot be less than 0.";
+    if (this.state.fireRadius < 0){
+        fireRadiusErr = "Error: Fire Radius cannot be less than 0.";
       }
 
-      if (this.state.releaseHeight < 0){
-        releaseHeightErr = "Invalid input: Release height cannot be less than 0.";
+    if (modelType === "General_Plume" && (this.state.releaseHeight < 0 
+        || !(this.state.releaseHeight))){
+        releaseHeightErr = "Error: Release height cannot be blank or less than 0.";
+      }
+  
+    //if (this.state.intervalQty < 0){
+       // intervalQtyErr = "Error: Number of receptors cannot be less than 0.";
+     // }
+
+    if (this.state.receptorHeight < 0){
+        receptorHeightErr = "Error: Receptor height cannot be less than 0.";
       }
 
-      if (speedUnits === "m/s" && (this.state.windSpeed < 0.1 || this.state.windSpeed > 50)){
-        windSpeedErr = "Invalid input: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
-      }
-
-      if (speedUnits === "mph" && (this.state.windSpeed < 0.2 || this.state.windSpeed > 111)){
-        windSpeedErr = "Invalid input: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
-      }
-      
-      if (this.state.intervalQty < 0){
-        intervalQtyErr = "Invalid input: Number of receptors cannot be less than 0.";
-      }
-
-      if (this.state.receptorHeight < 0){
-        receptorHeightErr = "Invalid input: Receptor height cannot be less than 0.";
-      }
-
-      if (sourceAmountErr || fireCloudTopErr || fireRadiusErr 
-        || releaseHeightErr|| windSpeedErr || intervalQtyErr || receptorHeightErr || blankError || receptorFieldErr ){
+    if (sourceAmountErr || fireCloudTopErr || fireRadiusErr || releaseHeightErr|| windSpeedErr 
+      || receptorHeightErr || blankError || receptorFieldErr ){
 
         this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr,
-        releaseHeightErr, windSpeedErr,  intervalQtyErr, receptorHeightErr, blankError, receptorFieldErr});
+        releaseHeightErr, windSpeedErr, receptorHeightErr, blankError, receptorFieldErr});
         return false;
         
       }
