@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Col} from 'react-bootstrap';
-import Nuclides from '../assets/nuclides';
+import {nuclides as Nuclides, lungClass} from '../assets/nuclides';
 
 const options = [
     { value: 'General_Plume', label: 'General Plume' },
@@ -20,6 +20,7 @@ const distanceUnitsOptions = [
 ];
 
 const nuclides = Nuclides;
+const nuclideClasses = lungClass;
 
 class Model extends React.Component {
 
@@ -27,7 +28,10 @@ class Model extends React.Component {
     selectedOption: { value: 'General_Plume', label: 'General Plume' },
     sourceUnits: { value: 'Ci', label: 'Ci (Curies)' },
     distanceUnits: { value: 'm', label: 'm (meters)' },
-    nuclideOption: null
+    nuclideOption: null,
+    nuclideClasses: [],
+    sourceOption: null,
+    classOption: ''
   };
 
   modelChange = selectedOption => {
@@ -64,11 +68,28 @@ class Model extends React.Component {
     this.setState(
       { nuclideOption },
        () => console.log(`Option selected:`, this.state.nuclideOption)
-    );
+    );    
   };
 
-  sourceAmountChange(e) {
-    this.props.sourceAmountUpdate(e.target.value);
+  sourceAmountChange = sourceOption => {
+    this.setState(
+        { sourceOption },
+         () => console.log(`Option selected:`, this.state.sourceOption.value)
+      );
+    this.props.sourceAmountUpdate(sourceOption.value);
+  }
+
+  classSelect(e) {
+    this.props.classUpdate(e.target.id);
+    //console.log("Doses: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
+    if(e.target.id && this.state.nuclideOption.hasOwnProperty('value') && lungClass[this.state.nuclideOption.value].hasOwnProperty(e.target.id)){
+        console.log(this.state.nuclideOption.value, " ", e.target.id, " Lung Class: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
+        const classes = lungClass[this.state.nuclideOption.value][e.target.id]["dose"];
+        this.setState({nuclideClasses:classes});
+    }
+    else{
+        this.setState({nuclideClasses: []});
+    }
   }
 
   releaseHeightChange(e) {
@@ -84,7 +105,7 @@ class Model extends React.Component {
   }
 
   render() {
-    const { selectedOption, sourceUnits, distanceUnits, nuclideOption } = this.state;
+    const { selectedOption, sourceUnits, distanceUnits, nuclideOption, nuclideClasses, sourceOption, classOption } = this.state;
 
     if(selectedOption){ 
         return (
@@ -115,14 +136,25 @@ class Model extends React.Component {
                                     options={nuclides}    
                                 />
                             </Form.Group>
+                            {nuclideOption ? <Form.Group>
+                                <Form.Check inline name='lClass' type={'radio'} id={`F`} label={`F`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                <Form.Check inline name='lClass' type={'radio'} id={`M`} label={`M`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                <Form.Check inline name='lClass' type={'radio'} id={`S`} label={`S`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                <Form.Check inline name='lClass' type={'radio'} id={`G`} label={`G`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                            </Form.Group>: null}
                         </Col>
                         <Col xs={12} sm={4} md={4} lg={2}>
                             <Form.Group controlId="formSourceAmount">
                                 <Form.Label>Source Amount</Form.Label>
-                                <Form.Control
-                                    type="number" step ="0.0001" placeholder="Source Amount"
-                                    onChange={this.sourceAmountChange.bind(this)}
-                                />
+                                {nuclideOption !== null && nuclideOption.hasOwnProperty('value') 
+                                    ? <Select 
+                                        placeholder="Select Age"
+                                        value={sourceOption}
+                                        onChange={this.sourceAmountChange}
+                                        options={nuclideClasses}    
+                                    />
+                                    : console.log('no dose information')
+                                }
                             </Form.Group>
                         </Col>
                         <Col xs={12} sm={4} md={4} lg={2}>

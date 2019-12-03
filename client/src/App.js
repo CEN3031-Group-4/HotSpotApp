@@ -39,6 +39,7 @@ class App extends React.Component {
       fireCloudTop: 0,
       fireRadius: 0,
       sourceAmount: 0,
+      classOption: '',
       receptorDistance: {},
       intervalQty: 0,
       receptorHeight: 0,
@@ -87,6 +88,13 @@ class App extends React.Component {
     this.setState(
       { sourceAmount },
       () => console.log(`Source Amount: `, this.state.sourceAmount)
+    );
+  }
+
+  classUpdate = classOption => {
+    this.setState(
+      { classOption },
+      () => console.log(`Class Option: `, this.state.classOption)
     );
   }
 
@@ -336,6 +344,7 @@ class App extends React.Component {
                       fireCloudTopUpdate={this.fireCloudTopUpdate.bind(this)}
                       fireRadiusUpdate={this.fireRadiusUpdate.bind(this)}
                       sourceAmountUpdate={this.sourceAmountUpdate.bind(this)}
+                      classUpdate={this.classUpdate.bind(this)}
                       releaseHeightUpdate={this.releaseHeightUpdate.bind(this)}
                       sourceUnitsUpdate={this.sourceUnitsUpdate.bind(this)}
                       distanceUnitsUpdate={this.distanceUnitsUpdate.bind(this)}
