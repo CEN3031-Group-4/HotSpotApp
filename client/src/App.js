@@ -217,10 +217,10 @@ class App extends React.Component {
       windSpeedErr = "Error: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
     }
 
-    if(!(this.state.sourceAmount && this.state.windSpeed 
-        &&  this.state.receptorHeight)){
-          blankError = "Error: Fields have been left blank.";
-        }
+  //  if(!(this.state.sourceAmount && this.state.windSpeed 
+    //    &&  this.state.receptorHeight)){
+     //     blankError = "Error: Fields have been left blank.";
+     //   }
 
     if (modelType === "General_Fire" && !(this.state.fireRadius && this.state.fireCloudTop)){
           blankError = "Error: Fields have been left blank.";
@@ -300,7 +300,10 @@ class App extends React.Component {
                                                                                 this.state.receptDist[i],
                                                                                 this.state.receptorHeight,
                                                                                 this.state.releaseHeight,
-                                                                                this.state.windSpeed
+                                                                                this.state.windSpeed,
+                                                                                this.state.distanceUnits,
+                                                                                this.state.speedUnits,
+                                                                                this.state.receptorUnits
                                                                                 )};
             this.state.tableOutput.push(tempObject);
           }
@@ -320,7 +323,10 @@ class App extends React.Component {
                                                 j,
                                                 this.state.receptorHeight,
                                                 this.state.releaseHeight,
-                                                this.state.windSpeed
+                                                this.state.windSpeed,
+                                                this.state.distanceUnits,
+                                                this.state.speedUnits,
+                                                this.state.receptorUnits
                                                 )};
               this.state.graphOutput.push(tempObject);
             }
