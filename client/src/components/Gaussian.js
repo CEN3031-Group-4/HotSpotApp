@@ -46,8 +46,15 @@ export const Gaussian = (   modelType,
 
     console.log('Release height before conversion', H);
     if (distanceUnits !== 'm'){
-        // Converts ft to m
-        H = H * 0.3048;
+        if(modelType === 'General_Plume'){
+            // Converts ft to m
+            H = H * 0.3048;
+        }
+        if(modelType === 'General_Fire'){
+            // Converts ft to m
+            fireCloudTop = fireCloudTop * 0.3048;
+            fireRadius = fireRadius * 0.3048;
+        }
     }
     console.log('Release height after conversion', H);
 
