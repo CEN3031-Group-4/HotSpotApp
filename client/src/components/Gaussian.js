@@ -9,13 +9,6 @@ export const Gaussian = (   modelType,
                             receptorUnits
                         ) => {
     
-
-
-
-    // *** Things to do (not an all inclusive list, just things I have thought of while coding) ***
-    // 1. I have not done anything with unit conversion yet//
-    //
-    
     // x = receptor distance
     // Qt = The Source amount. In whichever units selected (Curies or Becquerels)
     // H = The Release Height in meters (if in feet, needs to be converted to meters)
@@ -31,7 +24,7 @@ export const Gaussian = (   modelType,
     /**
      * Conversions
      */
-    console.log('Receptor unit before conversion: ', x);
+    //console.log('Receptor unit before conversion: ', x);
     if (receptorUnits !== 'm') {
         if (receptorUnits === 'km') {
             x = x * 1000;
@@ -42,28 +35,30 @@ export const Gaussian = (   modelType,
             x = x * 1609.34;
         }
     }
-    console.log('Receptor unit after conversion: ', x);
+    //console.log('Receptor unit after conversion: ', x);
 
-    console.log('Release height before conversion', H);
+    //console.log('Release height before conversion', H);
     if (distanceUnits !== 'm'){
         if(modelType === 'General_Plume'){
             // Converts ft to m
             H = H * 0.3048;
+            z = z * 0.3048;
         }
         if(modelType === 'General_Fire'){
             // Converts ft to m
             fireCloudTop = fireCloudTop * 0.3048;
             fireRadius = fireRadius * 0.3048;
+            z = z * 0.3048;
         }
     }
-    console.log('Release height after conversion', H);
+    //console.log('Release height after conversion', H);
 
-    console.log('Wind speed before conversion:', u);
+    //console.log('Wind speed before conversion:', u);
     if (speedUnits !== 'm/s'){
         // Converts mph to m/s
         u = u / 2.237;
     }
-    console.log('Wind speed after conversion:', u);
+    //console.log('Wind speed after conversion:', u);
 
 
     // if general plume selected xy and xz are the same value
