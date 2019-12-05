@@ -85,15 +85,41 @@ class Model extends React.Component {
   }
 
   classSelect(e) {
-    this.props.classUpdate(e.target.id);
-    //console.log("Doses: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
-    if(e.target.id && this.state.nuclideOption.hasOwnProperty('value') && lungClass[this.state.nuclideOption.value].hasOwnProperty(e.target.id)){
-        console.log(this.state.nuclideOption.value, " ", e.target.id, " Lung Class: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
-        const classes = lungClass[this.state.nuclideOption.value][e.target.id]["dose"];
-        this.setState({nuclideClasses:classes});
+    if(e.target.id !== 'ICRP' && !document.getElementById('ICRP').checked){
+        this.props.classUpdate(e.target.id);
+        console.log("Doses: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
+        if(e.target.id && this.state.nuclideOption.hasOwnProperty('value') && lungClass[this.state.nuclideOption.value].hasOwnProperty(e.target.id)){
+            console.log(this.state.nuclideOption.value, " ", e.target.id, " Lung Class: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
+            const classes = lungClass[this.state.nuclideOption.value][e.target.id]["dose"];
+            this.setState({nuclideClasses:classes});
+        }
+        else{
+            this.setState({nuclideClasses: []});
+        }
     }
     else{
-        this.setState({nuclideClasses: []});
+        //get the ICRP lungClass value and dose, 
+        //get request from /api/nuclides/icrp will need to:
+        //split nuclideOption on - and take [0] to pass to find{nuclide:''}
+        if(document.getElementById('ICRP').checked){
+            //uncheck
+            document.getElementById("F").checked = false;
+            document.getElementById("M").checked = false;
+            document.getElementById("S").checked = false;
+            document.getElementById("G").checked = false;
+            //disable
+            document.getElementById("F").disabled = true;
+            document.getElementById("M").disabled = true;
+            document.getElementById("S").disabled = true;
+            document.getElementById("G").disabled = true;
+        }
+        else{
+            document.getElementById("F").removeAttribute('disabled');
+            document.getElementById("M").removeAttribute('disabled');
+            document.getElementById("S").removeAttribute('disabled');
+            document.getElementById("G").removeAttribute('disabled');
+        }
+        
     }
   }
 
@@ -141,12 +167,17 @@ class Model extends React.Component {
                                     options={nuclides}    
                                 />
                             </Form.Group>
-                            {nuclideOption ? <Form.Group>
-                                <Form.Check inline name='lClass' type={'radio'} id={`F`} label={`F`} value={classOption} onClick={this.classSelect.bind(this)}/>
-                                <Form.Check inline name='lClass' type={'radio'} id={`M`} label={`M`} value={classOption} onClick={this.classSelect.bind(this)}/>
-                                <Form.Check inline name='lClass' type={'radio'} id={`S`} label={`S`} value={classOption} onClick={this.classSelect.bind(this)}/>
-                                <Form.Check inline name='lClass' type={'radio'} id={`G`} label={`G`} value={classOption} onClick={this.classSelect.bind(this)}/>
-                            </Form.Group>: null}
+                            {nuclideOption ? 
+                                <div>
+                                    <Form.Label>Lung Class</Form.Label>
+                                    <Form.Group>
+                                    <Form.Check inline name='lClass' type={'radio'} id={`F`} label={`F`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                    <Form.Check inline name='lClass' type={'radio'} id={`M`} label={`M`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                    <Form.Check inline name='lClass' type={'radio'} id={`S`} label={`S`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                    <Form.Check inline name='lClass' type={'radio'} id={`G`} label={`G`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                    <Form.Check inline name='lClass' type={'checkbox'} id={`ICRP`} label={`ICRP`} value={classOption} onClick={this.classSelect.bind(this)}/>
+                                    </Form.Group>
+                                </div>: null}
                         </Col>
                         <Col xs={12} sm={4} md={4} lg={2}>
                             <Form.Group controlId="formSourceAmount">
@@ -158,6 +189,7 @@ class Model extends React.Component {
                                 {nuclideOption !== null && nuclideOption.hasOwnProperty('value') 
                                     ?
                                     <div>
+                                        <br></br>
                                     <Form.Label>Age</Form.Label> 
                                     <Select 
                                         placeholder="Select Age"

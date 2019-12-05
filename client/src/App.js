@@ -104,6 +104,7 @@ class App extends React.Component {
     this.setState(
       { classOption },
       () => console.log(`Class Option: `, this.state.classOption)
+      //if ICRP do some work...
     );
   }
 
