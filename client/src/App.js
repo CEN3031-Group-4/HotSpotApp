@@ -54,7 +54,21 @@ class App extends React.Component {
       receptDist: [],
       isSubmitted: false,
       graphOutput: [],
-      tableOutput: []
+      tableOutput: [],
+      outputModelType: '',
+      outputStableValue: '',
+      outputFireCloudTop: 0,
+      outputFireRadius: 0,
+      outputSourceAmount: 0,
+      outputReceptorHeight: 0,
+      outputReleaseHeight: 0,
+      outputWindSpeed: 0,
+      outputSourceUnits: '',
+      outputDistanceUnits: '',
+      outputReceptorUnits: '',
+      outputSpeedUnits: '',
+      graphDistanceUnits: 'm',
+      graphReceptorUnits: 'm'
     };
   }
 
@@ -283,7 +297,19 @@ class App extends React.Component {
       //clearing form
       this.setState(initialState);
       this.setState(
-        {receptDist: Object.values(this.state.receptorDistance),
+        {outputModelType: this.state.modelType,
+        outputStableValue: this.state.stableValue,
+        outputFireCloudTop: this.state.fireCloudTop,
+        outputFireRadius: this.state.fireRadius,
+        outputSourceAmount: this.state.sourceAmount,
+        outputReceptorHeight: this.state.receptorHeight,
+        outputReleaseHeight: this.state.releaseHeight,
+        outputWindSpeed: this.state.windSpeed,
+        outputSourceUnits: this.state.sourceUnits,
+        outputDistanceUnits: this.state.distanceUnits,
+        outputReceptorUnits: this.state.receptorUnits,
+        outputSpeedUnits: this.state.speedUnits,
+        receptDist: Object.values(this.state.receptorDistance),
         graphOutput: [],
         tableOutput: [],
         isSubmitted: true},
@@ -320,6 +346,8 @@ class App extends React.Component {
           this.setState({tableOutput: this.state.tableOutput});
           console.log(`Gaussian Output: \n` + this.state.tableOutput);
           //console.log(`isSubmitted: ` + this.state.isSubmitted);
+          
+          ///////////**************Graph Generator *************////////////
           let multiplier = 1;
           for (let i=0; i<6; i++)
           {
@@ -336,7 +364,7 @@ class App extends React.Component {
                                                 this.state.windSpeed,
                                                 this.state.distanceUnits,
                                                 this.state.speedUnits,
-                                                this.state.receptorUnits
+                                                this.state.graphReceptorUnits
                                                 )};
               this.state.graphOutput.push(tempObject);
             }
@@ -392,23 +420,26 @@ class App extends React.Component {
                 <Button type="submit" className="btn btn-dark" >Generate Output</Button>
               </div>
             </Form>
-            <TableOutput modelType={this.state.modelType}
-                    stableValue={this.state.stableValue}
-                    fireCloudTop={this.state.fireCloudTop}
-                    fireRadius={this.state.fireRadius}
-                    sourceAmount={this.state.sourceAmount}
+            <TableOutput outputModelType={this.state.outputModelType}
+                    outputStableValue={this.state.outputStableValue}
+                    outputFireCloudTop={this.state.outputFireCloudTop}
+                    outputFireRadius={this.state.outputFireRadius}
+                    outputSourceAmount={this.state.outputSourceAmount}
                     tableOutput={this.state.tableOutput}
-                    receptorHeight={this.state.receptorHeight}
-                    releaseHeight={this.state.releaseHeight}
-                    windSpeed={this.state.windSpeed}
-                    sourceUnits={this.state.sourceUnits}
-                    distanceUnits={this.state.distanceUnits}
-                    speedUnits={this.state.speedUnits}
-                    receptorUnits={this.state.receptorUnits}
+                    outputReceptorHeight={this.state.outputReceptorHeight}
+                    outputReleaseHeight={this.state.outputReleaseHeight}
+                    outputWindSpeed={this.state.outputWindSpeed}
+                    outputSourceUnits={this.state.outputSourceUnits}
+                    outputDistanceUnits={this.state.outputDistanceUnits}
+                    outputSpeedUnits={this.state.outputSpeedUnits}
+                    outputReceptorUnits={this.state.outputReceptorUnits}
+                    graphDistanceUnits={this.state.graphDistanceUnits}
                     isSubmitted={this.state.isSubmitted}
                     />
             <GraphOutput  graphOutput={this.state.graphOutput}
                           isSubmitted={this.state.isSubmitted}
+                          graphReceptorUnits={this.state.graphReceptorUnits}
+                          outputSourceUnits={this.state.outputSourceUnits}
                           />
             <br></br>
           </div>

@@ -7,8 +7,8 @@ class TableOutput extends React.Component {
         const { tableOutput } = this.props;
         const receptorList = tableOutput.map((output) =>
             <tr key={output.x}>
-                <td>{output.x} {this.props.receptorUnits}</td>
-                <td>{output.concentration} {this.props.sourceUnits}-s/{this.props.distanceUnits}<sup>3</sup></td>
+                <td>{output.x} {this.props.outputReceptorUnits}</td>
+                <td>{output.concentration} {this.props.outputSourceUnits}-s/{this.props.graphDistanceUnits}<sup>3</sup></td>
             </tr>
         );
         //console.log(`Output receptors: `, receptDist);
@@ -23,18 +23,18 @@ class TableOutput extends React.Component {
                 {this.props.isSubmitted &&
                 <div>
                     <h3>Selected Values:</h3>
-                    <li>Model Type: {this.props.modelType}</li>
+                    <li>Model Type: {this.props.outputModelType}</li>
                     <li>Selected Nuclide: N/A</li>
-                    <li>Source Amount: {this.props.sourceAmount} {this.props.sourceUnits}</li>
-                    {this.props.modelType === "General_Plume" &&
-                    <li>Release Height: {this.props.releaseHeight} {this.props.distanceUnits}</li>}
-                    {this.props.modelType === "General_Fire" &&
-                    <li>Fire Cloud Height: {this.props.fireCloudTop} {this.props.distanceUnits}</li>}
-                    {this.props.modelType === "General_Fire" &&
-                    <li>Fire Radius: {this.props.fireRadius} {this.props.distanceUnits}</li>}
-                    <li>Wind Speed: {this.props.windSpeed} {this.props.speedUnits}</li>
-                    <li>Stability Value: {this.props.stableValue}</li>
-                    <li>Receptor Height: {this.props.receptorHeight} {this.props.receptorUnits}</li>
+                    <li>Source Amount: {this.props.outputSourceAmount} {this.props.outputSourceUnits}</li>
+                    {this.props.outputModelType === "General_Plume" &&
+                    <li>Release Height: {this.props.outputReleaseHeight} {this.props.outputDistanceUnits}</li>}
+                    {this.props.outputModelType === "General_Fire" &&
+                    <li>Fire Cloud Height: {this.props.outputFireCloudTop} {this.props.outputDistanceUnits}</li>}
+                    {this.props.outputModelType === "General_Fire" &&
+                    <li>Fire Radius: {this.props.outputFireRadius} {this.props.outputDistanceUnits}</li>}
+                    <li>Wind Speed: {this.props.outputWindSpeed} {this.props.outputSpeedUnits}</li>
+                    <li>Stability Value: {this.props.outputStableValue}</li>
+                    <li>Receptor Height: {this.props.outputReceptorHeight} {this.props.outputDistanceUnits}</li>
                     <br></br>
                     <table className="table table-striped">
                         <thead>
