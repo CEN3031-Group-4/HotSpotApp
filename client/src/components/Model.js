@@ -87,7 +87,7 @@ class Model extends React.Component {
   classSelect(e) {
     if(e.target.id !== 'ICRP' && !document.getElementById('ICRP').checked){
         this.props.classUpdate(e.target.id);
-        console.log("Doses: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
+        //console.log("Doses: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
         if(e.target.id && this.state.nuclideOption.hasOwnProperty('value') && lungClass[this.state.nuclideOption.value].hasOwnProperty(e.target.id)){
             console.log(this.state.nuclideOption.value, " ", e.target.id, " Lung Class: ", lungClass[this.state.nuclideOption.value][e.target.id]["dose"]);
             const classes = lungClass[this.state.nuclideOption.value][e.target.id]["dose"];
@@ -101,6 +101,7 @@ class Model extends React.Component {
         //get the ICRP lungClass value and dose, 
         //get request from /api/nuclides/icrp will need to:
         //split nuclideOption on - and take [0] to pass to find{nuclide:''}
+        this.setState({nuclideClasses: []});
         if(document.getElementById('ICRP').checked){
             //uncheck
             document.getElementById("F").checked = false;
