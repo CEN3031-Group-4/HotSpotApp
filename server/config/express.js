@@ -19,6 +19,12 @@ module.exports.init = () => {
     // initialize app
     const app = express();
 
+    // body parsing middleware
+    app.use(bodyParser.json());
+
+    // add a router
+    app.use('/api/nuclides', nuclideRouter);
+
     if (process.env.NODE_ENV === 'production') {
         // Exprees will serve up production assets
         app.use(express.static('client/build'));
@@ -26,12 +32,6 @@ module.exports.init = () => {
             response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
         });
       }
-
-    // body parsing middleware
-    app.use(bodyParser.json());
-
-    // add a router
-    app.use('/api/nuclides', nuclideRouter);
 
     return app
 }
