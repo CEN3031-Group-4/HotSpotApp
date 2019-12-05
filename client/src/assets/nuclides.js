@@ -1,7 +1,7 @@
 var Request = require("request");
 const dbNuclideOptions = []
 
-Request.get("https://localhost:5000/api/nuclides",{strictSSL: false}, (error, response, body) => {
+Request.get("http://localhost:5000/api/nuclides", (error, response, body) => {
         if(error) {
             return console.dir(error);
         }
