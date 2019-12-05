@@ -31,6 +31,7 @@ class Model extends React.Component {
     nuclideOption: null,
     nuclideClasses: [],
     sourceOption: null,
+    ageOption: null,
     classOption: ''
   };
 
@@ -71,12 +72,16 @@ class Model extends React.Component {
     );    
   };
 
-  sourceAmountChange = sourceOption => {
+  sourceAmountChange(e) {
+    this.props.sourceAmountUpdate(e.target.value);
+  }
+
+  ageChange = ageOption => {
     this.setState(
-        { sourceOption },
-         () => console.log(`Option selected:`, this.state.sourceOption.value)
+        { ageOption },
+         () => console.log(`Option selected:`, this.state.ageOption.value)
       );
-    this.props.sourceAmountUpdate(sourceOption.value);
+    this.props.ageUpdate(ageOption.value);
   }
 
   classSelect(e) {
@@ -105,7 +110,7 @@ class Model extends React.Component {
   }
 
   render() {
-    const { selectedOption, sourceUnits, distanceUnits, nuclideOption, nuclideClasses, sourceOption, classOption } = this.state;
+    const { selectedOption, sourceUnits, distanceUnits, nuclideOption, nuclideClasses, sourceOption, classOption, ageOption } = this.state;
 
     if(selectedOption){ 
         return (
@@ -146,13 +151,21 @@ class Model extends React.Component {
                         <Col xs={12} sm={4} md={4} lg={2}>
                             <Form.Group controlId="formSourceAmount">
                                 <Form.Label>Source Amount</Form.Label>
+                                    <Form.Control
+                                            type="number" step ="0.0001" placeholder="Source Amount"
+                                            onChange={this.sourceAmountChange.bind(this)}
+                                        />
                                 {nuclideOption !== null && nuclideOption.hasOwnProperty('value') 
-                                    ? <Select 
+                                    ?
+                                    <div>
+                                    <Form.Label>Age</Form.Label> 
+                                    <Select 
                                         placeholder="Select Age"
-                                        value={sourceOption}
-                                        onChange={this.sourceAmountChange}
+                                        value={ageOption}
+                                        onChange={this.ageChange}
                                         options={nuclideClasses}    
                                     />
+                                    </div>
                                     : console.log('no dose information')
                                 }
                             </Form.Group>
