@@ -8,6 +8,7 @@ import Model from "./components/Model"
 import Meteorology from "./components/Meteorology"
 import {Form, Button} from 'react-bootstrap';
 import {Gaussian} from "./components/Gaussian";
+import {ArrivalTime} from "./components/ArrivalTime";
 import Receptors from "./components/Receptors";
 import TableOutput from "./components/TableOutput";
 import Errors from "./components/Errors";
@@ -72,6 +73,7 @@ class App extends React.Component {
       graphReceptorUnits: 'm',
       
     };
+
   }
 
   modelTypeUpdate = modelType => {
@@ -290,6 +292,7 @@ class App extends React.Component {
       return true;
     }
 
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -343,7 +346,12 @@ class App extends React.Component {
                                                                                 this.state.distanceUnits,
                                                                                 this.state.speedUnits,
                                                                                 this.state.receptorUnits,
-                                                                                ), arrival : (this.state.receptDist[i]/this.state.windSpeed)};
+                                                                                ), arrival : ArrivalTime(
+                                                                                  this.state.receptDist[i],
+                                                                                  this.state.windSpeed,
+                                                                                  this.state.receptorUnits,
+                                                                                  this.state.speedUnits
+                                                                                  )};
             this.state.tableOutput.push(tempObject);
           }
           this.setState({tableOutput: this.state.tableOutput});
