@@ -9,6 +9,7 @@ class TableOutput extends React.Component {
             <tr key={output.x}>
                 <td>{output.x} {this.props.outputReceptorUnits}</td>
                 <td>{output.concentration} {this.props.outputSourceUnits}-s/{this.props.graphDistanceUnits}<sup>3</sup></td>
+                <td>{output.arrival} s</td>
             </tr>
         );
         //console.log(`Output receptors: `, receptDist);
@@ -41,6 +42,8 @@ class TableOutput extends React.Component {
                             <tr>
                                 <td>Receptor Distance</td>
                                 <td>Concentration</td>
+                                <td>Arrival Time</td>
+                                <td>Total Dose</td>
                             </tr>
                         </thead>
                         <tbody>
