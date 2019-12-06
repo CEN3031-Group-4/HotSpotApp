@@ -20,6 +20,7 @@ const initialState = {
   receptorHeightErr: "",
   releaseHeightErr: "",
   windSpeedErr: "",
+  intervalQtyErr: "",
   blankError: "",
   receptorFieldErr: ""
 }
@@ -68,7 +69,8 @@ class App extends React.Component {
       outputReceptorUnits: '',
       outputSpeedUnits: '',
       graphDistanceUnits: 'm',
-      graphReceptorUnits: 'm'
+      graphReceptorUnits: 'm',
+      
     };
   }
 
@@ -217,6 +219,7 @@ class App extends React.Component {
     let windSpeedErr = "";
     let receptorHeightErr = "";
     let blankError = "";
+    let intervalQtyErr = "";
     let modelType = this.state.modelType;
     let speedUnits = this.state.speedUnits;
     let receptorFieldErr = "";
@@ -241,10 +244,10 @@ class App extends React.Component {
       windSpeedErr = "Error: Wind speed must be between 0.1 and 50 m/s (0.2 and 111 mph).";
     }
 
-  //  if(!(this.state.sourceAmount && this.state.windSpeed 
-    //    &&  this.state.receptorHeight)){
-     //     blankError = "Error: Fields have been left blank.";
-     //   }
+    if(!(this.state.sourceAmount && this.state.windSpeed 
+        &&  this.state.receptorHeight)){
+          blankError = "Error: Fields have been left blank.";
+        }
 
     if (modelType === "General_Fire" && !(this.state.fireRadius && this.state.fireCloudTop)){
           blankError = "Error: Fields have been left blank.";
@@ -267,18 +270,18 @@ class App extends React.Component {
         releaseHeightErr = "Error: Release height cannot be blank or less than 0.";
       }
   
-    //if (this.state.intervalQty < 0){
-       // intervalQtyErr = "Error: Number of receptors cannot be less than 0.";
-     // }
+    if (this.state.intervalQty < 0){
+        intervalQtyErr = "Error: Number of receptors cannot be less than 0.";
+      }
 
     if (this.state.receptorHeight < 0){
         receptorHeightErr = "Error: Receptor height cannot be less than 0.";
       }
 
     if (sourceAmountErr || fireCloudTopErr || fireRadiusErr || releaseHeightErr|| windSpeedErr 
-      || receptorHeightErr || blankError || receptorFieldErr ){
+      || receptorHeightErr || blankError || receptorFieldErr || intervalQtyErr){
 
-        this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr,
+        this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr, intervalQtyErr,
         releaseHeightErr, windSpeedErr, receptorHeightErr, blankError, receptorFieldErr});
         return false;
         
@@ -339,8 +342,8 @@ class App extends React.Component {
                                                                                 this.state.windSpeed,
                                                                                 this.state.distanceUnits,
                                                                                 this.state.speedUnits,
-                                                                                this.state.receptorUnits
-                                                                                )};
+                                                                                this.state.receptorUnits,
+                                                                                ), arrival : (this.state.receptDist[i]/this.state.windSpeed)};
             this.state.tableOutput.push(tempObject);
           }
           this.setState({tableOutput: this.state.tableOutput});

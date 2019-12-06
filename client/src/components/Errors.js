@@ -26,6 +26,9 @@ class Errors extends React.Component {
                 {this.props.receptorHeightErr}
             </div> 
             <div style={{fontSize: 14, color: "red"}}>
+                {this.props.intervalQtyErr}
+            </div> 
+            <div style={{fontSize: 14, color: "red"}}>
                 {this.props.blankError}
             </div>
             <div style={{fontSize: 14, color: "red"}}>

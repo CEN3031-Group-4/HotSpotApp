@@ -6,7 +6,7 @@ export const Gaussian = (   modelType,
                             Qt, x, z, H, u,
                             distanceUnits,
                             speedUnits,
-                            receptorUnits
+                            receptorUnits,
                         ) => {
     
     // x = receptor distance
@@ -59,7 +59,6 @@ export const Gaussian = (   modelType,
         u = u / 2.237;
     }
     //console.log('Wind speed after conversion:', u);
-
 
     // if general plume selected xy and xz are the same value
     xy = parseFloat(x); //xy = x + dy (dy = 0 for General Plume)
