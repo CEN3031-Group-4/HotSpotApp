@@ -114,7 +114,7 @@ class App extends React.Component {
   ageUpdate = ageOption => {
     this.setState(
       { ageOption },
-      () => console.log(`Source Amount: `, this.state.ageOption)
+      () => console.log(`Dose Amount: `, this.state.ageOption)
     );
   }
 
