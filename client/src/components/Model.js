@@ -19,7 +19,7 @@ const distanceUnitsOptions = [
     { value: 'ft', label: 'ft (feet)' }
 ];
 
-const nuclides = Nuclides;
+const nuclides = Nuclides
 //const nuclideClasses = lungClass;
 //console.log(lungClass);
 
