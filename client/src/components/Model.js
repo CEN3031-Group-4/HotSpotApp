@@ -83,6 +83,7 @@ class Model extends React.Component {
     const lClasses = lungClass.filter(function(nuclide){
         return nuclide.Nuclide === nuclideOption;
     });
+    this.setState({classInputs:[]});
     this.setState({nuclideClasses:lClasses},
         ()=> {
             console.log(this.state.nuclideClasses);
