@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 
     exports.list = function(req, res) {
-        Nuclides.find({}, 'Nuclide', function(err, data){
+        Nuclides.find({}, function(err, data){
           if (err) throw err;
           // console.log(Nuclides.find({}));
           res.setHeader('Access-Control-Allow-Origin', '*');

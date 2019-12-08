@@ -73,6 +73,8 @@ class Model extends React.Component {
        () => {
             console.log(`Option selected:`, this.state.nuclideOption);
             this.getClassList(this.state.nuclideOption.value);
+            this.props.nuclideUpdate(this.state.nuclideOption.value);
+            this.props.halflifeUpdate(this.state.nuclideOption['Half-life'])
        }
     );        
   };
@@ -135,7 +137,9 @@ class Model extends React.Component {
              //console.log(`Nuclide Age selected:`, this.state.ageOption.value)
             }
       );
-    this.props.ageUpdate(ageOption.value);
+      //ageOption.value = the dose for the given nuclide, lung class, and age
+    this.props.doseUpdate(ageOption.value);
+    this.props.ageUpdate(ageOption.label);
   }
 
   classSelect(e) {
@@ -248,7 +252,7 @@ class Model extends React.Component {
                                     ?
                                     <div>
                                         <br></br>
-                                    <Form.Label>Age</Form.Label> 
+                                    <Form.Label>Age (Days)</Form.Label> 
                                     <Select 
                                         placeholder="Select Age"
                                         value={ageOption}
