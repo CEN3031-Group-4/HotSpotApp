@@ -9,7 +9,7 @@ Request.get("http://localhost:5000/api/nuclides", (error, response, body) => {
 
         //console.log(dbNuclides[0]['Nuclide'])
         dbNuclides.forEach(element => {
-            dbNuclideOptions.push({label:element['Nuclide'],value:element['Nuclide']})
+            dbNuclideOptions.push({label:element['Nuclide'],value:element['Nuclide'],'Half-life':element['Half-life']})
         });
         //console.log(dbNuclideOptions);
     });

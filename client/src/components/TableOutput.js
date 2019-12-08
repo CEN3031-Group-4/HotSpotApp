@@ -8,8 +8,9 @@ class TableOutput extends React.Component {
         const receptorList = tableOutput.map((output) =>
             <tr key={output.x}>
                 <td>{output.x} {this.props.outputReceptorUnits}</td>
-                <td>{output.concentration} {this.props.outputSourceUnits}-s/{this.props.graphDistanceUnits}<sup>3</sup></td>
-                <td>{output.arrival} s</td>
+                <td>{output.decayAdjConc.toExponential(3)} {this.props.outputSourceUnits}-s/{this.props.graphDistanceUnits}<sup>3</sup></td>
+                <td>{output.totalDose.toExponential(3)} mrem???</td>
+                <td>{output.arrival.toFixed(1)} s</td>
             </tr>
         );
         //console.log(`Output receptors: `, receptDist);
@@ -25,8 +26,13 @@ class TableOutput extends React.Component {
                 <div>
                     <h3>Selected Values:</h3>
                     <li>Model Type: {this.props.outputModelType}</li>
-                    <li>Selected Nuclide: N/A</li>
-                    <li>Source Amount: {this.props.outputSourceAmount} {this.props.outputSourceUnits}</li>
+                    <li>Selected Nuclide: {this.props.outputNuclideOption}</li>
+                    <li>Half-life: {this.props.outputHalfLife} s</li>
+                    <li>Decay Constant: {this.props.outputDecayConstant.toExponential(4)} s<sup>-1</sup></li>
+                    <li>Lung Class: {this.props.outputClassOption}</li>
+                    <li>Age Option: {this.props.outputAgeOption} days</li>
+                    <li>Effective Dose: {this.props.outputEffectiveDose.toExponential()}</li>
+                    <li>Source Amount: {parseFloat(this.props.outputSourceAmount).toExponential()} {this.props.outputSourceUnits}</li>
                     {this.props.outputModelType === "General_Plume" &&
                     <li>Release Height: {this.props.outputReleaseHeight} {this.props.outputDistanceUnits}</li>}
                     {this.props.outputModelType === "General_Fire" &&
@@ -41,10 +47,10 @@ class TableOutput extends React.Component {
                         <thead>
                             <tr>
                                 <td>Receptor Distance</td>
-                                <td>Concentration</td>
-                                <td>Arrival Time</td>
+                                <td>Decay Adjusted Concentration</td>
                                 <td>Total Dose</td>
-                            </tr>
+                                <td>Arrival Time</td>
+                                </tr>
                         </thead>
                         <tbody>
                             {receptorList}

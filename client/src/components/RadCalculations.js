@@ -29,3 +29,19 @@ export const ArrivalTime = (   x,
 
     return arrivalTime;
 }
+
+export const DecayAdjust = (unAdjConc, arrivalTime, decayConstant) => {
+    let decayAdjConc;
+
+    decayAdjConc = unAdjConc * Math.exp(-1 * decayConstant * arrivalTime);
+
+    return decayAdjConc;
+}
+
+export const TotalDose = (decayAdjConc, effectiveDose) => {
+    let totalDose;
+    
+    totalDose = decayAdjConc * 4.17e-4 * effectiveDose;
+
+    return totalDose;
+}
