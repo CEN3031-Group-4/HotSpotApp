@@ -233,13 +233,18 @@ class Model extends React.Component {
                                     options={nuclides}    
                                 />
                             </Form.Group>
-                            {nuclideOption && classList.length > 0 ? 
-                                <div>
+                            {nuclideOption  && classList.length > 0 
+                            ? <div>
                                     <Form.Label>Lung Class</Form.Label>
                                     <Form.Group>
                                         {this.state.classInputs}
                                     </Form.Group>
-                                </div>: null}
+                                </div>
+                            : nuclideOption && nuclideOption.hasOwnProperty('value') ?
+                                <div style={{fontSize: 14, color: "red"}}>
+                                    Nuclide dose data not yet loaded, reselect nuclide.
+                                </div>
+                            : null}
                         </Col>
                         <Col xs={12} sm={4} md={4} lg={2}>
                             <Form.Group controlId="formSourceAmount">
@@ -248,8 +253,7 @@ class Model extends React.Component {
                                             type="number" step ="0.0001" placeholder="Source Amount"
                                             onChange={this.sourceAmountChange.bind(this)}
                                         />
-                                {nuclideOption !== null && nuclideOption.hasOwnProperty('value') 
-                                    ?
+                                {nuclideOption && classList.length > 0 ?
                                     <div>
                                         <br></br>
                                     <Form.Label>Age (Days)</Form.Label> 
@@ -260,7 +264,7 @@ class Model extends React.Component {
                                         options={doseList}    
                                     />
                                     </div>
-                                    : console.log('no dose information')
+                                    : null //console.log('no dose information')
                                 }
                             </Form.Group>
                         </Col>
