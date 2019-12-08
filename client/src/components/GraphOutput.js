@@ -5,8 +5,8 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class GraphOutput extends React.Component {
     render() {
-		const { outputSourceUnits, graphReceptorUnits } = this.props;
-		let yaxisTitle = `Total Dose (unknown units)`;
+		const { graphReceptorUnits } = this.props;
+		let yaxisTitle = `Total Dose (rem)`;
 		let xaxisTitle = `Distance from Source in the x-axis (` + graphReceptorUnits + `)`;
         const options = {
 			animationEnabled: true,
@@ -16,6 +16,7 @@ class GraphOutput extends React.Component {
 				text: "Total Dose by Distance From Source"
 			},
 			axisY: {
+				valueFormatString: "0.0##e+0",
 				title: yaxisTitle,
 				includeZero: false
 			},

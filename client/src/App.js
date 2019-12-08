@@ -406,7 +406,7 @@ class App extends React.Component {
             this.state.tableOutput.push(tempObject);
           }
           this.setState({tableOutput: this.state.tableOutput});
-          console.log(`Gaussian Output: \n` + this.state.tableOutput);
+          //console.log(`Gaussian Output: \n` + this.state.tableOutput);
           //console.log(`isSubmitted: ` + this.state.isSubmitted);
           
           ///////////**************Graph Generator *************////////////

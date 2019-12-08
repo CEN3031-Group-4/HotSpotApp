@@ -9,7 +9,7 @@ class TableOutput extends React.Component {
             <tr key={output.x}>
                 <td>{output.x} {this.props.outputReceptorUnits}</td>
                 <td>{output.decayAdjConc.toExponential(3)} {this.props.outputSourceUnits}-s/{this.props.graphDistanceUnits}<sup>3</sup></td>
-                <td>{output.totalDose.toExponential(3)} mrem???</td>
+                <td>{output.totalDose.toExponential(3)} rem</td>
                 <td>{output.arrival.toFixed(1)} s</td>
             </tr>
         );
