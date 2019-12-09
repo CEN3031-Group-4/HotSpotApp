@@ -24,16 +24,7 @@ Because HotSpotApp/server/config/ is not stored in git, the HotSpotApp/server/co
 };`  
 Then run:  
 `nodemon server/server.js`  
-At this point, the Express back-end should be running on port 5000.  
-
-## Credits:  
-CanvasJS: [https://canvasjs.com/](https://canvasjs.com/)  
-Create-React-App (Facebook):  
-`npx create-react-app my-app`  
-`cd my-app`  
-`npm start`  
-React-Bootstrap: [https://react-bootstrap.github.io/](https://react-bootstrap.github.io/)  
-React-Select: [https://react-select.com/](https://react-select.com/)  
+At this point, the Express back-end should be running on port 5000.   
   
 ## Project Features Implemented:  
 - #### Gaussian Model Selection
@@ -43,6 +34,16 @@ React-Select: [https://react-select.com/](https://react-select.com/)
 - #### Table Output
 - #### Graphical Output
 
+## Credits:  
+Lawrence Livermore National Laboratory: [https://www.llnl.gov/](https://www.llnl.gov/)  
+CanvasJS: [https://canvasjs.com/](https://canvasjs.com/)  
+Create-React-App (Facebook):  
+`npx create-react-app my-app`  
+`cd my-app`  
+`npm start`  
+React-Bootstrap: [https://react-bootstrap.github.io/](https://react-bootstrap.github.io/)  
+React-Select: [https://react-select.com/](https://react-select.com/)  
+  
 ## Group 4 Workflow
 Our Workflow will include creating a branch for the feature being edited  
 `git branch <branch-name>`  
@@ -53,11 +54,10 @@ Our Workflow will include creating a branch for the feature being edited
   
 Once work is completed the Scrum Master will evaluate the branch and accept the merge.
    
-## Project Notes
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-This project contains an example project board meant to showcase how one can be used. The issues posted to it are not real issues.
-
+## Project Notes  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
+Service experts in the field currently have a desktop version of an application created and maintained by LLNL, called HotSpot, that is used to track large hazardous environmental plumes. LLNL is looking to create a platform independent web app version of the current solution.  
+  
 #### _**IMPORTANT NOTE**_ - 
 This project does not have a mongoDB connection setup. For:
 - local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
