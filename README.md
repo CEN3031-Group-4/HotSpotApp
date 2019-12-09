@@ -16,7 +16,7 @@ At this point, the UI should be running on port 3000.
 `cd HotSpotApp/server/`  
 `npm install`  
 
-#### _**IMPORTANT NOTE**_ - 
+#### _**IMPORTANT NOTE**_  
 This project does not have a mongoDB connection setup. For:
 - local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.  
 `module.exports = {  
@@ -29,7 +29,7 @@ Then run:
 `nodemon server/server.js`  
 At this point, the Express back-end should be running on port 5000.
 
-- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".    
+- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heroku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".    
   
 ## Project Features Implemented:  
 - #### Gaussian Model Selection
