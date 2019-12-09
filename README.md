@@ -1,40 +1,41 @@
 **Link to deployed site:** [https://hotspot-dkp-g4.herokuapp.com/] (https://hotspot-dkp-g4.herokuapp.com/)
 
 ## Initialize Repository
-Requires [git] (https://desktop.github.com/) and [node.js] (https://nodejs.org/en/download/)  installation
-`git clone https://github.com/CEN3031-Group-4/HotSpotApp.git`
+Requires [git] (https://desktop.github.com/) and [node.js] (https://nodejs.org/en/download/)  
+installation  
+`git clone https://github.com/CEN3031-Group-4/HotSpotApp.git`  
+  
+#Front-end:  
+`cd HotSpotApp/client/`  
+`npm install`  
+`npm start`  
+At this point, the UI should be running on port 3000.  
+  
+#Back-end: (I like to use nodemon to run server.js as it will restart on file saves)  
+`npm install -g nodemon`  
+`cd HotSpotApp/server/`  
+`npm install`  
+  
+Because HotSpotApp/server/config/ is not stored in git, the HotSpotApp/server/config/config.js file will need to be setup manually:  
+`module.exports = {  
+    db: {  
+        uri: '', //place the URI of your mongo database here.  
+    }  
+};`  
+Then run:  
+`nodemon server/server.js`  
+At this point, the Express back-end should be running on port 5000.  
 
-#Front-end:
-`cd HotSpotApp/client/`
-`npm install`
-`npm start`
-At this point, the UI should be running on port 3000.
-
-#Back-end: (I like to use nodemon to run server.js as it will restart on file saves)
-`npm install -g nodemon`
-`cd HotSpotApp/server/`
-`npm install`
-
-Because HotSpotApp/server/config/ is not stored in git, the HotSpotApp/server/config/config.js file will need to be setup manually:
-`module.exports = {
-    db: {
-        uri: '', //place the URI of your mongo database here.
-    }
-};`
-Then run:
-`nodemon server/server.js`
-At this point, the Express back-end should be running on port 5000.
-
-## Credits:
-CanvasJS: [https://canvasjs.com/] (https://canvasjs.com/)
-Create-React-App (Facebook):
-`npx create-react-app my-app`
-`cd my-app`
-`npm start`
-React-Bootstrap: [https://react-bootstrap.github.io/] (https://react-bootstrap.github.io/)
-React-Select: [https://react-select.com/] (https://react-select.com/)
-
-## Project Features Implemented:
+## Credits:  
+CanvasJS: [https://canvasjs.com/] (https://canvasjs.com/)  
+Create-React-App (Facebook):  
+`npx create-react-app my-app`  
+`cd my-app`  
+`npm start`  
+React-Bootstrap: [https://react-bootstrap.github.io/] (https://react-bootstrap.github.io/)  
+React-Select: [https://react-select.com/] (https://react-select.com/)  
+  
+## Project Features Implemented:  
 - #### Gaussian Model Selection
 - #### Inputs based on model selection
 - #### Meteorological inputs
