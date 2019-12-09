@@ -34,13 +34,13 @@ Create-React-App (Facebook):
 React-Bootstrap: [https://react-bootstrap.github.io/] (https://react-bootstrap.github.io/)
 React-Select: [https://react-select.com/] (https://react-select.com/)
 
-##Project Features Implemented:
-#### Gaussian Model Selection
-#### Inputs based on model selection
-#### Meteorological inputs
-#### Receptors - Test points x-distance from model origin
-#### Table Output
-#### Graphical Output
+## Project Features Implemented:
+- #### Gaussian Model Selection
+- #### Inputs based on model selection
+- #### Meteorological inputs
+- #### Receptors - Test points x-distance from model origin
+- #### Table Output
+- #### Graphical Output
 
 ## Group 4 Workflow
 Our Workflow will include creating a branch for the feature being edited  
