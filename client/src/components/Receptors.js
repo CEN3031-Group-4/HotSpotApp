@@ -34,7 +34,7 @@ class Receptors extends React.Component {
         selectedInterval: null,
         inputDisabled: false,
         inputPlaceholder: "Number of Receptors",
-        intervalQty: 0,
+        intervalQty: '',
         receptorUnits: { value: 'km', label: 'km (kilometers)' }
       };
       intervalChange = selectedInterval => {
@@ -43,18 +43,21 @@ class Receptors extends React.Component {
             () => {
                if (this.state.selectedInterval.value === 'S') {
                    this.setState({inputDisabled: true,
-                                  inputPlaceholder: "20",
-                                  intervalQty: 20},
+                                  intervalQty: ''},
                                   () => {
                                      this.makeinputs();
-                                     console.log(`intervalQty in Receptors.js: `, this.state.intervalQty);
-                                     this.props.standardReceptorUpdate();
+                                     this.setState({intervalQty: 20},
+                                        () => {
+                                            this.makeinputs();
+                                            console.log(`intervalQty in Receptors.js: `, this.state.intervalQty);
+                                            this.props.standardReceptorUpdate();
+                                        });
                                     });
                }    
                else if (this.state.selectedInterval.value === 'C') {
                    this.setState({inputDisabled: false,
                                   inputPlaceholder: "Number of Receptors",
-                                  intervalQty: 0},
+                                  intervalQty: ''},
                                   () => {
                                       this.props.clearReceptorInputs();
                                       this.makeinputs();
@@ -203,7 +206,7 @@ class Receptors extends React.Component {
       }
 
     render() {
-        const { selectedInterval, receptorUnits } = this.state;
+        const { selectedInterval, receptorUnits, intervalQty } = this.state;
 
         return (
             <div>
@@ -225,6 +228,7 @@ class Receptors extends React.Component {
                             <Form.Control
                                 type="number" placeholder={this.state.inputPlaceholder}
                                 disabled={this.state.inputDisabled}
+                                value={intervalQty}
                                 onChange={this.intervalQtyChange.bind(this)}
                                 />
                         </Form.Group>
