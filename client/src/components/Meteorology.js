@@ -9,8 +9,8 @@ const options = [
     { value: 'C', label: 'C - Slightly Unstable' },
     { value: 'D', label: 'D - Neutral' },
     { value: 'E', label: 'E - Slightly Stable' },
-    { value: 'F', label: 'F - Moderately Stable' },
-    { value: 'G', label: 'G - Special Night-time (Low Wind)' }
+    { value: 'F', label: 'F - Moderately Stable' }
+    //{ value: 'G', label: 'G - Special Night-time (Low Wind)' }
 ];
 
 const speedUnitsOptions = [
@@ -23,6 +23,7 @@ class Meteorology extends React.Component {
     selectedOption: null,
     speedUnits: { value: 'm/s', label: 'm/s (meters/second)' }
   };
+  
   stabilityChange = selectedOption => {
     this.setState(
       { selectedOption },

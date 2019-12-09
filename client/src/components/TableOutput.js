@@ -13,13 +13,6 @@ class TableOutput extends React.Component {
                 <td>{output.arrival.toFixed(1)} s</td>
             </tr>
         );
-        //console.log(`Output receptors: `, receptDist);
-        /*const concentrationList = concentration.map((concentrate, index) =>
-            <tr key={index}>
-                <td>{concentrate} {this.props.sourceUnits}-s/{this.props.distanceUnits}<sup>3</sup></td>
-            </tr>
-        );*/
-        //console.log(`Output concentration: `, concentration);
         return (
             <div>
                 {this.props.isSubmitted &&

@@ -80,12 +80,15 @@ class Model extends React.Component {
                     this.getClassList(this.state.nuclideOption.value);
                     this.props.nuclideUpdate(this.state.nuclideOption.value);
                     this.props.halflifeUpdate(this.state.nuclideOption['Half-life'])
+                    //this resets the age to the default value which won't allow the form to be
+                    //submitted unless a new lung class and age are selected
                     this.props.ageUpdate(0);
                 });
             
        });
   };
 
+  //gets the lung classes from the database based on the nuclide selected
   getClassList(nuclideOption){
     const lClasses = lungClass.filter(function(nuclide){
         return nuclide.Nuclide === nuclideOption;
@@ -150,6 +153,8 @@ class Model extends React.Component {
     this.props.ageUpdate(ageOption.label);
   }
 
+  //updates the doseList based on what lung class is selected.
+  //doseList.label = age and doseList.value = effective dose 
   classSelect(e) {
     if(e.target.id !== 'ICRP'){
         this.props.classUpdate(e.target.id);
@@ -241,6 +246,7 @@ class Model extends React.Component {
                                     options={nuclides}    
                                 />
                             </Form.Group>
+                            {/*Checks if the Nuclide data has loaded yet. If not error message is prompted*/}
                             {nuclideOption  && classList.length > 0 
                             ? <div>
                                     <Form.Label>Lung Class</Form.Label>
