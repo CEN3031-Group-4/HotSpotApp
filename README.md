@@ -23,13 +23,13 @@ This project does not have a mongoDB connection setup. For:
     db: {  
         uri: '', //place the URI of your mongo database here.  
     }  
-};` 
- 
+};`
 Then run:  
 `nodemon server/server.js`  
 At this point, the Express back-end should be running on port 5000.
 
-- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heroku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".    
+- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heroku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI". This app can be deployed directly to heroku since there is a script defined in package.json which will automatically handle building and deploying the app. For more information on deploying to heroku reference the extra resources at the bottom of this file. 
+   
   
 ## Project Features Implemented:  
 - #### Gaussian Model Selection
@@ -61,13 +61,6 @@ Once work is completed the Scrum Master will evaluate the branch and accept the 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
 Service experts in the field currently have a desktop version of an application created and maintained by LLNL, called HotSpot, that is used to track large hazardous environmental plumes. LLNL is looking to create a platform independent web app version of the current solution.  
   
-## Getting Started
-This repository aims to assist you in beginning work on a MERN stack application with a solid file structure as a foundation. To get started make a copy of this template repo for your project teams.
-
-Since this project will hold both the client application and the server application there will be node modules in two different places. First run `npm install` from the root. After this you will run `npm run-script install-all` from the root. From now on run this command anytime you want to install all modules again. This is a script we have defined in package.json .
-
-This app can be deployed directly to heroku since there is a script defined in package.json which will automatically handle building and deploying the app. For more information on deploying to heroku reference the extra resources at the bottom of this file. 
-
 ## File structure
 #### `client` - Holds the client application
 - #### `public` - This holds all of our static files
