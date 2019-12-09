@@ -23,7 +23,8 @@ const initialState = {
   windSpeedErr: "",
   intervalQtyErr: "",
   blankError: "",
-  receptorFieldErr: ""
+  receptorFieldErr: "",
+  nuclideErr: ""
 }
 
 const standardInterval = [0.03, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
@@ -261,6 +262,7 @@ class App extends React.Component {
     let modelType = this.state.modelType;
     let speedUnits = this.state.speedUnits;
     let receptorFieldErr = "";
+    let nuclideErr = "";
 
     const receptorFields = document.querySelectorAll('.receptor-control-input');
     
@@ -272,6 +274,10 @@ class App extends React.Component {
         receptorFieldErr = "Error: Receptor fields cannot be blank or less than 0.";
         break;
       }
+    }
+
+    if (this.state.ageOption === 0){
+      nuclideErr = "Error: Nuclide, Lung Class, and Age must be selected.";
     }
 
     if (speedUnits === "m/s" && (this.state.windSpeed < 0.1 || this.state.windSpeed > 50)){
@@ -317,10 +323,10 @@ class App extends React.Component {
       }
 
     if (sourceAmountErr || fireCloudTopErr || fireRadiusErr || releaseHeightErr|| windSpeedErr 
-      || receptorHeightErr || blankError || receptorFieldErr || intervalQtyErr){
+      || receptorHeightErr || blankError || receptorFieldErr || intervalQtyErr || nuclideErr){
 
         this.setState({sourceAmountErr, fireCloudTopErr, fireRadiusErr, intervalQtyErr,
-        releaseHeightErr, windSpeedErr, receptorHeightErr, blankError, receptorFieldErr});
+        releaseHeightErr, windSpeedErr, receptorHeightErr, blankError, receptorFieldErr, nuclideErr});
         return false;
         
       }
@@ -489,6 +495,7 @@ class App extends React.Component {
                   receptorHeightErr={this.state.receptorHeightErr}
                   blankError={this.state.blankError}
                   receptorFieldErr={this.state.receptorFieldErr}
+                  nuclideErr={this.state.nuclideErr}
               />
 
               <div className="text-center">
