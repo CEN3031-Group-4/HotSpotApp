@@ -8,6 +8,9 @@ class Errors extends React.Component {
       return (
         <div>
             <div style={{fontSize: 14, color: "red"}}>
+                {this.props.nuclideErr}
+            </div>
+            <div style={{fontSize: 14, color: "red"}}>
                 {this.props.sourceAmountErr}
             </div>
             <div style={{fontSize: 14, color: "red"}}>

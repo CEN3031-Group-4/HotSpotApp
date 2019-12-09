@@ -34,7 +34,8 @@ class Model extends React.Component {
     nuclideClasses: [],
     sourceOption: null,
     ageOption: null,
-    classOption: ''
+    classOption: '',
+    doseList: []
   };
 
   modelChange = selectedOption => {
@@ -71,12 +72,18 @@ class Model extends React.Component {
     this.setState(
       { nuclideOption },
        () => {
-            console.log(`Option selected:`, this.state.nuclideOption);
-            this.getClassList(this.state.nuclideOption.value);
-            this.props.nuclideUpdate(this.state.nuclideOption.value);
-            this.props.halflifeUpdate(this.state.nuclideOption['Half-life'])
-       }
-    );        
+            this.setState(
+                {ageOption: null,
+                 doseList: []},
+                () => {
+                    console.log(`Option selected:`, this.state.nuclideOption);
+                    this.getClassList(this.state.nuclideOption.value);
+                    this.props.nuclideUpdate(this.state.nuclideOption.value);
+                    this.props.halflifeUpdate(this.state.nuclideOption['Half-life'])
+                    this.props.ageUpdate(0);
+                });
+            
+       });
   };
 
   getClassList(nuclideOption){
