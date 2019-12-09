@@ -15,16 +15,21 @@ At this point, the UI should be running on port 3000.
 `npm install -g nodemon`  
 `cd HotSpotApp/server/`  
 `npm install`  
-  
-Because HotSpotApp/server/config/ is not stored in git, the HotSpotApp/server/config/config.js file will need to be setup manually:  
+
+#### _**IMPORTANT NOTE**_ - 
+This project does not have a mongoDB connection setup. For:
+- local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.  
 `module.exports = {  
     db: {  
         uri: '', //place the URI of your mongo database here.  
     }  
-};`  
+};` 
+ 
 Then run:  
 `nodemon server/server.js`  
-At this point, the Express back-end should be running on port 5000.   
+At this point, the Express back-end should be running on port 5000.
+
+- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".    
   
 ## Project Features Implemented:  
 - #### Gaussian Model Selection
@@ -38,9 +43,7 @@ At this point, the Express back-end should be running on port 5000.
 Lawrence Livermore National Laboratory: [https://www.llnl.gov/](https://www.llnl.gov/)  
 CanvasJS: [https://canvasjs.com/](https://canvasjs.com/)  
 Create-React-App (Facebook):  
-`npx create-react-app my-app`  
-`cd my-app`  
-`npm start`  
+`npx create-react-app my-app`   
 React-Bootstrap: [https://react-bootstrap.github.io/](https://react-bootstrap.github.io/)  
 React-Select: [https://react-select.com/](https://react-select.com/)  
   
@@ -58,11 +61,6 @@ Once work is completed the Scrum Master will evaluate the branch and accept the 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
 Service experts in the field currently have a desktop version of an application created and maintained by LLNL, called HotSpot, that is used to track large hazardous environmental plumes. LLNL is looking to create a platform independent web app version of the current solution.  
   
-#### _**IMPORTANT NOTE**_ - 
-This project does not have a mongoDB connection setup. For:
-- local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
-- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".
-
 ## Getting Started
 This repository aims to assist you in beginning work on a MERN stack application with a solid file structure as a foundation. To get started make a copy of this template repo for your project teams.
 
