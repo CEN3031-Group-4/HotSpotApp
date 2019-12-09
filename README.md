@@ -1,7 +1,7 @@
-**Link to deployed site:** [https://hotspot-dkp-g4.herokuapp.com/] (https://hotspot-dkp-g4.herokuapp.com/)
+**Link to deployed site:** [https://hotspot-dkp-g4.herokuapp.com/](https://hotspot-dkp-g4.herokuapp.com/)
 
 ## Initialize Repository
-Requires [git] (https://desktop.github.com/) and [node.js] (https://nodejs.org/en/download/)  
+Requires [git](https://desktop.github.com/) and [node.js](https://nodejs.org/en/download/)  
 installation  
 `git clone https://github.com/CEN3031-Group-4/HotSpotApp.git`  
   
@@ -27,13 +27,13 @@ Then run:
 At this point, the Express back-end should be running on port 5000.  
 
 ## Credits:  
-CanvasJS: [https://canvasjs.com/] (https://canvasjs.com/)  
+CanvasJS: [https://canvasjs.com/](https://canvasjs.com/)  
 Create-React-App (Facebook):  
 `npx create-react-app my-app`  
 `cd my-app`  
 `npm start`  
-React-Bootstrap: [https://react-bootstrap.github.io/] (https://react-bootstrap.github.io/)  
-React-Select: [https://react-select.com/] (https://react-select.com/)  
+React-Bootstrap: [https://react-bootstrap.github.io/](https://react-bootstrap.github.io/)  
+React-Select: [https://react-select.com/](https://react-select.com/)  
   
 ## Project Features Implemented:  
 - #### Gaussian Model Selection
