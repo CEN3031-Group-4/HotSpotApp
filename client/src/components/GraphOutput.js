@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CanvasJSReact from '../assets/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+//See canvasjs.com for documentation on how to manipulate this graph
 class GraphOutput extends React.Component {
     render() {
 		const { graphReceptorUnits } = this.props;

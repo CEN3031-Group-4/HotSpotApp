@@ -42,6 +42,9 @@ class Receptors extends React.Component {
           { selectedInterval },
             () => {
                if (this.state.selectedInterval.value === 'S') {
+                   //initially setting intervalQty to '', running makeinputs(), and then setting intervalQty to 20,
+                   //and running makeinputs() again, resets the input fields so that if you had custom previously
+                   //selected and had inputed values, it gets rid of those values and just shows the standard interval
                    this.setState({inputDisabled: true,
                                   intervalQty: ''},
                                   () => {
@@ -244,6 +247,7 @@ class Receptors extends React.Component {
                             />
                         </Form.Group>
                     </Col>
+                    {/*z-Receptor Height units are based on the Distance Units selected, not x-Receptor Units*/}
                     <Col xs={12} sm={6} md={3} lg={3}>
                         <Form.Group>
                             <Form.Label>z-Receptor Height</Form.Label>

@@ -1,7 +1,5 @@
 import React from "react";
-//import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import {Form, Col} from 'react-bootstrap';
 
 class Errors extends React.Component {
     render() {

@@ -14,6 +14,7 @@ import TableOutput from "./components/TableOutput";
 import Errors from "./components/Errors";
 import GraphOutput from "./components/GraphOutput";
 
+//initialState is used to reset the Error state if all fields are entered will appropriate values
 const initialState = {
   fireCloudTopErr: "",
   fireRadiusErr: "",
@@ -169,9 +170,6 @@ class App extends React.Component {
 
   receptorDistanceUpdate = newElement => {
     this.setState(
-      // prevState => ({
-      //   receptorDistance: [...prevState.receptorDistance, newElement]
-      // }),
       () => {
         if(newElement.id){
           var id={};
@@ -344,6 +342,9 @@ class App extends React.Component {
 
       //clearing form
       this.setState(initialState);
+      
+      //sets the output so that the output doesn't change when you manipulate the inputs
+      //until you select "Generage Output"
       this.setState(
         {outputModelType: this.state.modelType,
         outputStableValue: this.state.stableValue,
@@ -383,6 +384,8 @@ class App extends React.Component {
           let tempConcentration = 0;
           let tempArrivalTime = 0;
           let tempDecayAdjConc = 0;
+          //These concentration calculations always output in Ci(or Bq)-s/m^3, regardless of what units
+          //are chosen for the input. The Gaussian function converts all units to meters and seconds.
           for (let i = 0; i < this.state.receptDist.length; i++)
           {
             tempConcentration = Gaussian(this.state.modelType,
@@ -416,6 +419,10 @@ class App extends React.Component {
           //console.log(`isSubmitted: ` + this.state.isSubmitted);
           
           ///////////**************Graph Generator *************////////////
+          //This graph calculates 541 points from 1 m to 990000 m in a logarithmic fashion
+          //Note that it is always in meters at this moment. this.state.graphReceptorUnits
+          //would have to be updated in order to have the Gaussian function calculate using
+          //different units. 
           let multiplier = 1;
           for (let i=0; i<6; i++)
           {
@@ -440,6 +447,8 @@ class App extends React.Component {
                                 this.state.speedUnits
                                 );
               tempDecayAdjConc = DecayAdjust(tempConcentration, tempArrivalTime, this.state.decayConstant);
+              //Updating this tempObject would change the axes of the graph. So conditional formatting
+              //could be used here to change the output of the graph
               tempObject = {x : j,
                             y : TotalDose(tempDecayAdjConc, this.state.effectiveDose)
                           };
