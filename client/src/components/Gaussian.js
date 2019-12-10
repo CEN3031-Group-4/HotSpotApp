@@ -125,7 +125,7 @@ export const Gaussian = (   modelType,
         {
             ady = 0.04 ** 2;
 
-            dz = Sz / (0.03 - 0.0003 * Sz);
+            dz = Sz / (0.016 - 0.0003 * Sz);
         }
         
         bdy = 0.0001 * (Sy ** 2);
